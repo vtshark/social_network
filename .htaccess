@@ -1,0 +1,5 @@
+AddDefaultCharset UTF-8
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !/static/
+RewriteRule ^([a-zA-Z0-9\-\_\/]+)/$ index.php?act=$1 [L]
