@@ -12,7 +12,7 @@ function errorPage() {
 function display($template, $data = array()) {
     //Собираем общий путь для дальнейшего использования.
     //Когда один и тот же код используется более одного раза - стоит вынести его в функцию/переменную
-    $fullPath = TEMPLATE_PATH.$template.TEMPLATE_TYPE;
+    $fullPath = getTemplatePath($template);
     
     //Если файл не существует, ничего не отображаем, с включеным дебагом выводит сообщение об этом
     if( !file_exists($fullPath) ) {
@@ -26,8 +26,14 @@ function display($template, $data = array()) {
     //Начинаем буфер, не обязательно, но может пригодится если мы захотим обработать получившийся шаблон
     ob_start();
     
+    //Подключаем хедер
+    include getTemplatePath("include/header");
+    
     //Подключаем контроллер(модуль)
     include $fullPath;
+    
+    //Подключаем футер
+    include getTemplatePath("include/footer");
     
     //Забираем в переменную весь буфер вывода и очищаем его
     $page = ob_get_clean();
@@ -40,6 +46,11 @@ function display($template, $data = array()) {
 //Сокращение для функции htmlspecialchars
 function out($str) {
     return htmlspecialchars($str);
+}
+
+
+function getTemplatePath($template) {
+    return TEMPLATE_PATH.$template.TEMPLATE_TYPE;
 }
 
 

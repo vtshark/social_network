@@ -1,0 +1,26 @@
+
+<?php if (isset($err)): ?>
+<?php foreach ($err as $val): ?>
+    <font color="red"><?=$val; ?></font><br/>
+<?php endforeach; ?>
+<hr>
+<?php endif; ?>
+
+
+
+
+
+
+
+
+
+
+<form action="login" method ="POST">
+    <input name ="login" type="text" placeholder="login"><br/>
+    <input name ="password" type="text" placeholder="password"><br/>
+    <input type="submit" value="Registration"><br/>
+</form>
+
+
+
+

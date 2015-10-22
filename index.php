@@ -4,7 +4,7 @@
 require "core/config.php";
 
 //Подключаемся к базе данных
-// require "core/db.php";
+require "core/db.php";
 
 //Подтягиваем доп функции для дальнейшего использования
 require "core/func.php";
