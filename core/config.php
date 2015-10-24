@@ -1,6 +1,6 @@
 <?php
 
-define("DB_LOGIN", "xsikor");
+define("DB_LOGIN", "vtshark");
 define("DB_PASSWORD", "");
 define("DB_NAME", "social");
 

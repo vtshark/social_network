@@ -1,6 +1,25 @@
-<form action="registration" method ="POST">
-    <input name ="login" type="text" placeholder="login"><br/>
-    <input name ="email" type="text" placeholder="email"><br/>
-    <input name ="password" type="text" placeholder="password"><br/>
-    <input type="submit" value="Registration"><br/>
-</form>
+<?php $i=0; if (isset($error)): ?>
+    <?php foreach ($error as $val): ?>
+        <font color="#C0AFAB"><?=++$i.'.'.$val; ?></font><br/>
+    <?php endforeach; ?>
+<hr>
+<?php endif;?>
+<?php if ($regfl==0):?>
+    <form action="../reg/" method ="POST">
+        <br/><input name ="login" type="text" placeholder="Логин" value='<?= $login ?>'><br/>
+        <br/><input name ="email" type="text" placeholder="e-mail" value='<?= $email ?>'><br/>
+        <br/><input name ="password" type="password" placeholder="Пароль"><br/>
+        <br/><input name ="password1" type="password" placeholder="Подтвердите пароль"><br/>
+        <br/><input class='b1' type="submit" value="Ок">
+    </form>
+        <form action="../" method ="POST">
+        <br/><input class='b1' type="submit" value="Главная страница">
+        </form>
+<?php else: ?>
+    <b>Регистрация завершена</b>
+        <form action="../" method ="POST">
+        <br/><input class='b1' type="submit" value="Ок">
+    </form>
+<?php endif; ?>
+
+

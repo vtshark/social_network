@@ -1,25 +1,28 @@
 
-<?php if (isset($err)): ?>
-<?php foreach ($err as $val): ?>
-    <font color="red"><?=$val; ?></font><br/>
-<?php endforeach; ?>
+<?php if (isset($error)): ?>
+    <?php foreach ($error as $val): ?>
+        <font color="#C0AFAB"><?=$val; ?></font><br/>
+    <?php endforeach; ?>
 <hr>
 <?php endif; ?>
-
-
-
-
-
-
-
-
-
-
-<form action="login" method ="POST">
-    <input name ="login" type="text" placeholder="login"><br/>
-    <input name ="password" type="text" placeholder="password"><br/>
-    <input type="submit" value="Registration"><br/>
-</form>
+<?php if ($user==''):?>
+    <div class='login'>
+    <form action="../login/" method ="POST">
+        <input name ="login" type="text" placeholder="Имя пользоваля"><br/>
+        <input name ="password" type="password" placeholder="Пароль"><br/><br/>
+        <input class='b1' type="submit" value="Войти">
+    </form>    
+    <hr>
+    <form action="../reg/" method ="POST">    
+        <input class='b1' type="submit" value="Регистрация"><br/>
+    </form>
+    </div>
+<?php else: ?>
+    <b>Привет <?=$user?> </b>
+        <form action="../" method ="POST">
+        <br/><input class='b1' type="submit" value="Главная страница">
+    </form>
+<?php endif; ?>
 
 
 

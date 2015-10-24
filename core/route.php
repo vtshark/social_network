@@ -5,7 +5,7 @@ $module = ($_GET['act'] != "" ? $_GET['act'] : "main");
 
 //Собираем в переменную полный путь к подключаемому модулю
 $fullPath = CONTROLLER_PATH.$module.".php";
-
+//debug($fullPath);
 //Если файл не существует вызываем функцию errorPage
 if( !file_exists($fullPath) ) {
     errorPage();   

@@ -42,12 +42,10 @@ function display($template, $data = array()) {
     exit($page);
 }
 
-
 //Сокращение для функции htmlspecialchars
 function out($str) {
     return htmlspecialchars($str);
 }
-
 
 function getTemplatePath($template) {
     return TEMPLATE_PATH.$template.TEMPLATE_TYPE;

@@ -10,5 +10,6 @@ require "core/db.php";
 require "core/func.php";
 
 //Разбираем URL и подключаем необходимый контроллер (модуль)
+session_start();
 require "core/route.php";
 

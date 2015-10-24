@@ -1,0 +1,32 @@
+<div class='menu'>
+    <table>
+        <tr onclick=setmode('user')><td><?="Пользователь:".$user?></td></tr>
+        <tr onclick=setmode('friends')><td>Друзья</td></tr>
+        <tr onclick=setmode('msg')><td>Сообщения</td></tr>
+        <tr onclick=setmode('news')><td>Новости</td></tr>
+    </table>
+    <br/><br/>
+
+<form action=<?=$buf_path."exit/"?> method ="POST">
+<input class='b2' type="submit" value="Выход">    
+</form>
+</div>
+
+<?php switch ($mode):
+
+    case 'friends': ?>
+        <div class='friends'>Мои друзья</div>
+    <?php break; ?>
+
+    <?php case 'msg': ?>
+        <div class='msg'>Сообщенния</div>
+    <?php break; ?>
+
+    <?php case 'news': ?>
+        <div class='news'>Новости</div>
+    <?php break; ?>
+    
+    <?php default: ?>
+    
+
+<?php endswitch; ?>    
