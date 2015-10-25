@@ -50,18 +50,11 @@ if ($user=='')  {
             WHERE `iduser` = $iduser ORDER BY `data` DESC");
             $i=0;
             while($res = $q->fetch_assoc()) {
-                //debug($res);
-                $i++;
+                $i=$res['id'];
                 $arr_out[$i]['text']=$res['text'];
                 $arr_out[$i]['data']=$res['data'];
                 $arr_out[$i]['autor']=$res['login'];
-                
             }
-                //debug($arr_out);
-            //foreach ($res as $key => $val) {
-                //$arr_out[]=$val[$key];
-                //debug($val);
-            //}
             break;
         default:    
     }

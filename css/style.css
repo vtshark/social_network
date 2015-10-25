@@ -1,0 +1,112 @@
+body { background:#4F5D55;}
+.b1 {
+	background: linear-gradient(#414B5E, #000000);
+	border: 0px inset #000000;
+	border-radius:  8px;
+	color: #ffffff;
+	font-weight: 600;
+	cursor: pointer;
+	height:25px;
+}
+.b2 {
+	background: linear-gradient(#5D1313, #000000);
+	border: 0px inset #000000;
+	border-radius:  8px;
+	color: #ffffff;
+	font-weight:600;
+	cursor:pointer;
+	height:25px;
+}
+img {
+    cursor:pointer;  
+}
+.trmenu:hover {
+    background: #B9CFB1;
+    cursor:pointer;
+   }
+.pointer:hover {
+    cursor:pointer;
+   }
+div {
+	background: #A0AEA6;
+    border-radius: 5px;
+}
+.hidden {
+    visibility: hidden;
+    height: 0px;
+    width:40px;
+}
+.hidden1 {
+    visibility: visible;
+    height: 0px;
+    width:40px;
+}
+.menu {
+    height: 200px;
+    width: 200px;
+	overflow-x: hidden;
+	margin:5px;
+    padding:10px;
+    box-shadow: 0 0 5px 1px;    
+}
+.login {
+    height: 150px;
+    width: 25%;
+    margin-left: 35%;
+    overflow-x: hidden;
+    margin:5px;
+    padding:10px;
+    box-shadow: 0 0 5px 1px;    
+}
+.reg {
+    height: 300px;
+    width: 25%;
+    margin-left: 35%;
+    overflow-x: hidden;
+    margin:5px;
+    padding:10px;
+    box-shadow: 0 0 5px 1px;    
+}
+.news {
+    position:absolute;
+    height: 80%;
+    width: 30%;
+    left:250px;
+    top:5px;
+    overflow-x: hidden;
+    margin:5px;
+    padding:15px;
+    box-shadow: 0 0 5px 1px;    
+}   
+.msg {
+    position:absolute;
+    height: 50%;
+    width: 500px;
+    left:250px;
+    top:5px;
+    overflow-x: hidden;
+    margin:5px;
+    padding:10px;
+    box-shadow: 0 0 5px 1px;    
+}   
+.friends {
+    position:absolute;
+    height: 50%;
+    width: 500px;
+    left:250px;
+    top:5px;
+    overflow-x: hidden;
+    margin:5px;
+    padding:10px;
+    box-shadow: 0 0 5px 1px;    
+}
+.fixedHeader tr {
+	display: block;
+	background: #A0AEA6;
+}
+.scrollContent {
+	display: block;
+	height: 500px;
+	overflow: auto;
+	width: 100%;
+}

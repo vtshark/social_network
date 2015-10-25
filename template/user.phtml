@@ -1,9 +1,9 @@
 <div class='menu'>
     <table>
-        <tr onclick=setmode('user')><td><?="Пользователь:".$user?></td></tr>
-        <tr onclick=setmode('friends')><td>Друзья</td></tr>
-        <tr onclick=setmode('msg')><td>Сообщения</td></tr>
-        <tr onclick=setmode('news')><td>Новости</td></tr>
+        <tr class='trmenu' onclick=setmode('user')><td><?="Пользователь:".$user?></td></tr>
+        <tr class='trmenu' onclick=setmode('friends')><td>Друзья</td></tr>
+        <tr class='trmenu' onclick=setmode('msg')><td>Сообщения</td></tr>
+        <tr class='trmenu' onclick=setmode('news')><td>Новости</td></tr>
     </table>
     <br/><br/>
 
@@ -23,14 +23,30 @@
     <?php break; ?>
 
     <?php case 'news': ?>
-        <div class='news'>Новости<hr>
-            <?php if (isset($arr_out)): ?>
-                <?php foreach ($arr_out as $key => $val): ?>
-                    <b><?=$val['data'].' '.$val['autor']; ?></b><br/><br/>
-                    <?=$val['text']; ?>
-                    <hr>
-                <?php endforeach; ?>
-            <?php endif; ?>
+        <div class='news'>
+            <table>
+                <thead class='fixedHeader'>
+                <tr><th>Новости</th><th><img src='/xxi/static/add.png' title='Добавить'></th></tr>
+                </thead>
+                <tbody class='scrollContent'>
+                <?php if (isset($arr_out)): ?>
+                    <?php foreach ($arr_out as $key => $val): ?>
+                        <tr>
+                            <th class='pointer' onclick=showeditpanel(<?=$key?>)>
+                            <?=$val['data'].' '.$val['autor']; ?>
+                            </th>
+                            <th>
+                            <div class='hidden' id='news<?=$key?>'></div>
+                            </th>
+                        </tr>
+                        <tr><td>
+                            <?=$val['text']; ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                </tbody>
+            </table>
         </div>
     <?php break; ?>
     
