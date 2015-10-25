@@ -22,8 +22,10 @@
 //}
 
 $user='';
+$iduser='';
 if (isset($_SESSION['user']))  {
-   $user=$_SESSION['user']; 
+   $user=$_SESSION['user'];
+   $iduser=$_SESSION['iduser'];
 }
 //debug($user);
 if ($user=='')  {
@@ -34,6 +36,35 @@ if ($user=='')  {
     if (isset($_GET['m'])) {
         $mode=$_GET['m'];
     }
-    display("user", compact('title', 'user','mode'));
+    $arr_out=array();
+    switch ($mode) {
+        case 'friends':
+            
+            break;
+        case 'msg':
+            
+            break;
+        case "news":
+            $q = $db->query(" SELECT news.*, users.login 
+            FROM `news` INNER JOIN users ON users.id = news.idautor 
+            WHERE `iduser` = $iduser ORDER BY `data` DESC");
+            $i=0;
+            while($res = $q->fetch_assoc()) {
+                //debug($res);
+                $i++;
+                $arr_out[$i]['text']=$res['text'];
+                $arr_out[$i]['data']=$res['data'];
+                $arr_out[$i]['autor']=$res['login'];
+                
+            }
+                //debug($arr_out);
+            //foreach ($res as $key => $val) {
+                //$arr_out[]=$val[$key];
+                //debug($val);
+            //}
+            break;
+        default:    
+    }
+        
+    display("user", compact('title', 'user','mode','arr_out'));
 }
-

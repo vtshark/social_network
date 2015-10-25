@@ -23,10 +23,16 @@
     <?php break; ?>
 
     <?php case 'news': ?>
-        <div class='news'>Новости</div>
+        <div class='news'>Новости<hr>
+            <?php if (isset($arr_out)): ?>
+                <?php foreach ($arr_out as $key => $val): ?>
+                    <b><?=$val['data'].' '.$val['autor']; ?></b><br/><br/>
+                    <?=$val['text']; ?>
+                    <hr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
     <?php break; ?>
     
     <?php default: ?>
-    
-
 <?php endswitch; ?>    

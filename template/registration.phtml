@@ -5,6 +5,7 @@
 <hr>
 <?php endif;?>
 <?php if ($regfl==0):?>
+    <div class='reg'>
     <form action="../reg/" method ="POST">
         <br/><input name ="login" type="text" placeholder="Логин" value='<?= $login ?>'><br/>
         <br/><input name ="email" type="text" placeholder="e-mail" value='<?= $email ?>'><br/>
@@ -15,8 +16,9 @@
         <form action="../" method ="POST">
         <br/><input class='b1' type="submit" value="Главная страница">
         </form>
+    </div>
 <?php else: ?>
-    <b>Регистрация завершена</b>
+    <b>Пользователь <?= $login ?> зарегистрирован.</b>
         <form action="../" method ="POST">
         <br/><input class='b1' type="submit" value="Ок">
     </form>

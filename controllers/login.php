@@ -26,11 +26,12 @@ if ( (isset($_POST['login']) || isset($_POST['password'])) && ($fl_log==0) ) {
         }
 
         $q = $db->query(" SELECT * FROM `users` WHERE `$filter` = '$login' AND `passwd` = '$password' ");
-        $Res = $q->fetch_assoc();
-        if (!isset($Res)) {
+        $res = $q->fetch_assoc();
+        if (!isset($res)) {
             $error[] = "Не верные имя пользователя или пароль!";
         } else {
-            $_SESSION['user']=$login;
+            $_SESSION['user']=$res['login'];
+            $_SESSION['iduser']=$res['id'];
             $fl_log=1;
         }
     }    

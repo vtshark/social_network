@@ -2,6 +2,15 @@
 $title="Регистрация";
 $login=$email='';
 $regfl=0;
+
+//если пользователь уже авторизирован
+if (isset($_SESSION['user']))  {
+   if ($_SESSION['user']!='') {
+        $regfl=1;
+        $login=$_SESSION['user'];
+   }
+}
+
 if (isset($_POST['login']) ) {
     $error = array();    
     if ($_POST['login'] == "")  {
@@ -27,8 +36,8 @@ if (isset($_POST['login']) ) {
     if  (!$error) {
             //если нет ошибок проверяем существует ли пользователь с таким логином
             $q = $db->query(" SELECT `login` FROM `users` WHERE `login` = '$login'");
-            $Res = $q->fetch_assoc();
-            if (isset($Res)) {
+            $res = $q->fetch_assoc();
+            if (isset($res)) {
                 $error[] = "Пользователь с таким логином уже существует!";
                 
             } else {//Регистрация нового пользователя
@@ -37,6 +46,9 @@ if (isset($_POST['login']) ) {
                 $q = $db->query($strsql);
                 $regfl=1;
                 $_SESSION['user']=$login;
+                $q = $db->query(" SELECT `id` FROM `users` WHERE `login` = '$login'");
+                $res = $q->fetch_assoc();
+                $_SESSION['iduser']=$res['id'];
             }        
     }
 }
