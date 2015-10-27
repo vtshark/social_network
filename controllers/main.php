@@ -1,33 +1,31 @@
 <?php 
-
-/*
-Главная страница сайта и пример контроллера
-Тут может быть любая логика + работа с базой.
-В конце отдаем скрипту на вывод шаблон + пробрасываем внутрь него необходимые переменные.
-Функция compact собирает переменные в массив. Противоположная функции extract
-*/
-
-
-//$q = mysql_query("SELECT");
-//$q = $db->query("SELECT `id`, `online` FROM `users` WHERE `login` = 'test' AND `passwd` = 'testpasswd'");
-//mysql_fetch_assoc($q);
-//array("login" => "test", "passwd" => "test", ...);
-
-//while($res = $q->fetch_assoc()) {
-    //debug($res);
-//}
-
-//if(!$res) {
-    //echo 'В базе нету пользователей';
-//}
-
 $user='';
 $iduser='';
 if (isset($_SESSION['user']))  {
    $user=$_SESSION['user'];
    $iduser=$_SESSION['iduser'];
 }
-//debug($user);
+
+///сохранение новой записи в новостях
+if (isset($_POST['textnews'])) {
+    if ($iduser!='') {
+        $strsql="INSERT INTO `news`(`iduser`,`idautor`,`data`,`text`)
+                VALUES ($iduser,$iduser,NOW(),'".$_POST['textnews']."')";
+                $q = $db->query($strsql);
+    }
+}
+///удаление новости 
+if (isset($_POST['inddelnews'])) {
+    if ($iduser!='') {
+        $strsql="DELETE FROM `news` WHERE id = ".$_POST['inddelnews'];
+                $q = $db->query($strsql);
+                //debug($_POST['inddelnews']);
+
+    }
+}
+/////////////////////////////////////
+
+
 if ($user=='')  {
     $title = "Авторизация";
     display("main", compact('title', 'user'));

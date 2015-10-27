@@ -17,6 +17,15 @@ body { background:#4F5D55;}
 	cursor:pointer;
 	height:25px;
 }
+.b3 {
+	background: linear-gradient(#616B7E, #000000);
+	border: 0px inset #000000;
+	border-radius:  8px;
+	color: #ffffff;
+	font-weight: 600;
+	cursor: pointer;
+	height:20px;
+}
 img {
     cursor:pointer;  
 }
@@ -41,40 +50,62 @@ div {
     height: 0px;
     width:40px;
 }
+.headdiv {
+    position:absolute;
+    height: 20px;
+    width: 35%;
+    left:240px;
+	margin:3px;
+	top:3px;
+    padding:10px;
+    box-shadow: 0 0 5px 1px;
+}    
 .menu {
+    position:absolute;
+    top:3px;
     height: 200px;
     width: 200px;
-	overflow-x: hidden;
-	margin:5px;
+	margin:3px;
     padding:10px;
     box-shadow: 0 0 5px 1px;    
 }
 .login {
-    height: 150px;
-    width: 25%;
-    margin-left: 35%;
-    overflow-x: hidden;
-    margin:5px;
+    position:absolute;
+    left:35%;
+    height:150px;
+    width:25%;
     padding:10px;
-    box-shadow: 0 0 5px 1px;    
+    box-shadow: 0 0 5px 1px; 
 }
 .reg {
+    position:absolute;
+    left:35%;    
     height: 300px;
     width: 25%;
-    margin-left: 35%;
-    overflow-x: hidden;
     margin:5px;
     padding:10px;
     box-shadow: 0 0 5px 1px;    
 }
+.addnews {
+    position:fixed;
+    height: 50%;
+    width: 30%;
+    left:240px;
+    top:25px;
+    overflow-x: hidden;
+    margin:3px;
+    padding:15px;
+    box-shadow: 0 0 50px 10px; 
+    z-index:1;
+} 
 .news {
     position:absolute;
     height: 80%;
     width: 30%;
-    left:250px;
-    top:5px;
+    left:240px;
+    top:50px;
     overflow-x: hidden;
-    margin:5px;
+    margin:3px;
     padding:15px;
     box-shadow: 0 0 5px 1px;    
 }   
@@ -99,14 +130,4 @@ div {
     margin:5px;
     padding:10px;
     box-shadow: 0 0 5px 1px;    
-}
-.fixedHeader tr {
-	display: block;
-	background: #A0AEA6;
-}
-.scrollContent {
-	display: block;
-	height: 500px;
-	overflow: auto;
-	width: 100%;
 }

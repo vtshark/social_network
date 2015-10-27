@@ -23,12 +23,11 @@
     <?php break; ?>
 
     <?php case 'news': ?>
+        <div class='headdiv' id='headnews'>Новости
+            <img onclick=form_add_news()  src='/xxi/static/add.png' title='Добавить'>
+            </div>
         <div class='news'>
             <table>
-                <thead class='fixedHeader'>
-                <tr><th>Новости</th><th><img src='/xxi/static/add.png' title='Добавить'></th></tr>
-                </thead>
-                <tbody class='scrollContent'>
                 <?php if (isset($arr_out)): ?>
                     <?php foreach ($arr_out as $key => $val): ?>
                         <tr>
@@ -45,7 +44,6 @@
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
-                </tbody>
             </table>
         </div>
     <?php break; ?>
