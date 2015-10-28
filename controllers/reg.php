@@ -1,15 +1,12 @@
 <?php
+//если пользователь уже авторизирован
+if (isset($_SESSION['iduser']))  {
+        header('Location: /user/');
+}
+
 $title="Регистрация";
 $login=$email='';
 $regfl=0;
-
-//если пользователь уже авторизирован
-if (isset($_SESSION['user']))  {
-   if ($_SESSION['user']!='') {
-        $regfl=1;
-        $login=$_SESSION['user'];
-   }
-}
 
 if (isset($_POST['login']) ) {
     $error = array();    
@@ -42,13 +39,15 @@ if (isset($_POST['login']) ) {
                 
             } else {//Регистрация нового пользователя
                 $strsql="INSERT INTO `users`(`login`, `passwd`, `email`)
-                VALUES ('$login','$pass','$email')                    ";
+                VALUES ('$login','".md5($pass)."','$email')";
+                //exit($strsql);
                 $q = $db->query($strsql);
                 $regfl=1;
                 $_SESSION['user']=$login;
                 $q = $db->query(" SELECT `id` FROM `users` WHERE `login` = '$login'");
                 $res = $q->fetch_assoc();
                 $_SESSION['iduser']=$res['id'];
+                header('Location: /user/');
             }        
     }
 }

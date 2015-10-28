@@ -1,0 +1,26 @@
+<?php include "menu.phtml"; ?>
+
+        <div class='headdiv' id='headnews'>Новости
+            <img onclick=form_add_news()  src='/static/add.png' title='Добавить'>
+            </div>
+        <div class='news'>
+            <table>
+                <?php if (isset($arr_out)): ?>
+                    <?php foreach ($arr_out as $key => $val): ?>
+                        <tr>
+                            <th class='pointer' onclick=showeditpanel(<?=$key?>)>
+                            <?=$val['data'].' '.$val['autor']; ?>
+                            </th>
+                            <th>
+                            <div class='hidden' id='news<?=$key?>'></div>                            
+                            </th>
+                        </tr>
+                        <tr><td>
+                            <?=$val['text']; ?>
+                            <hr>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </table>
+        </div>

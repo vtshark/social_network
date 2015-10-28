@@ -5,11 +5,11 @@ require "core/config.php";
 
 //Подключаемся к базе данных
 require "core/db.php";
-
+session_start();
 //Подтягиваем доп функции для дальнейшего использования
 require "core/func.php";
 
 //Разбираем URL и подключаем необходимый контроллер (модуль)
-session_start();
+
 require "core/route.php";
 

@@ -16,10 +16,6 @@ var headnews='';
 //}
 ////////////////////////////////////////////
 
-function setmode(m)
-{
-    location='?m='+m;
-}
 function showeditpanel(ind)
 {
  var str;
@@ -27,10 +23,13 @@ function showeditpanel(ind)
     if ((indnews!=0)&&(indnews!=ind))  {
         hideeditpanel(indnews);
     }   
-        //<img src='/xxi/static/edit.png' title='Комментировать'>&nbsp;&nbsp;&nbsp;
-        str="<div id='news"+ind+"' class='hidden1'><form action='?m=news&del' method ='POST'>";
-        str=str+"<input name='inddelnews' class='hidden' value='"+ind+"'>";
-        str=str+"<button type='submit' class='b3' title='Удалить'><img type='submit' src='/xxi/static/delete.png'></button></form></div>";
+        str="<div id='news"+ind+"' class='hidden1'>\
+        <form action='/news/' method ='POST'>\
+        <input name='inddelnews' class='hidden' value='"+ind+"'>\
+        <button class='b3' title='Редактировать'><img src='../static/edit.png'></button>\
+        <button type='submit' class='b3' title='Удалить'><img src='../static/delete.png'></button>\
+        </form>\
+        </div>";
         el.outerHTML =str;
         indnews=ind;
 }
@@ -45,8 +44,8 @@ function form_add_news()
     
     if (!headnews) {
         headnews=el.innerHTML;
-        str=str+headnews+"<div class='addnews'><form action='?m=news' method ='POST'>";
-        str=str+"<textarea name='textnews' placeholder='текст сообщения' style='width:350px;height:200px;'></textarea>";
+        str=str+headnews+"<div class='addnews'><form action='/news/' method ='POST'>";
+        str=str+"<textarea class='textnews' name='textnews' placeholder='текст сообщения'></textarea>";
         str=str+"<br/><input class='b1' type='submit' value='Сохранить'>";
         str=str+"&nbsp;<input onclick=close_news_news() class='b2' type='button' value='Закрыть'>";
         str=str+"</form></div>";

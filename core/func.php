@@ -31,7 +31,7 @@ function display($template, $data = array()) {
     
     //Подключаем контроллер(модуль)
     include $fullPath;
-    
+
     //Подключаем футер
     include getTemplatePath("include/footer");
     
@@ -57,4 +57,18 @@ function debug($string) {
     if(DEBUG) {
         var_dump($string);
     }
+}
+
+//проверка авторизации, возврат id и login
+function checklogin($db) {
+    $arr_user=array();
+    if (isset($_SESSION['iduser']))  {
+    $iduser=$arr_user['id']=$_SESSION['iduser'];
+    $q = $db->query(" SELECT `id`, `login` FROM `users` WHERE `id` = $iduser");
+        $res = $q->fetch_assoc();
+        $arr_user['login']=$res['login'];
+    } else {
+        header('Location: /login/');
+    }
+    return $arr_user;
 }

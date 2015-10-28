@@ -18,7 +18,7 @@ body { background:#4F5D55;}
 	height:25px;
 }
 .b3 {
-	background: linear-gradient(#616B7E, #000000);
+	background: linear-gradient(#A1ABAE, #505050);
 	border: 0px inset #000000;
 	border-radius:  8px;
 	color: #ffffff;
@@ -26,6 +26,10 @@ body { background:#4F5D55;}
 	cursor: pointer;
 	height:20px;
 }
+  a {
+	text-decoration: none; /* убираем подчеркивание */
+	color: #000000;
+   } 
 img {
     cursor:pointer;  
 }
@@ -43,34 +47,35 @@ div {
 .hidden {
     visibility: hidden;
     height: 0px;
-    width:40px;
+    width:70px;
 }
 .hidden1 {
     visibility: visible;
     height: 0px;
-    width:40px;
+    width:70px;
 }
 .headdiv {
-    position:absolute;
+    position:fixed;
     height: 20px;
     width: 35%;
     left:240px;
 	margin:3px;
-	top:3px;
+	top:0px;
     padding:10px;
-    box-shadow: 0 0 5px 1px;
+    box-shadow:  0 0 5px 1px;
+    z-index:1;
 }    
 .menu {
-    position:absolute;
-    top:3px;
+    position:fixed;
+    top:0px;
     height: 200px;
     width: 200px;
 	margin:3px;
     padding:10px;
-    box-shadow: 0 0 5px 1px;    
+    box-shadow: 0 0 5px 1px; 
 }
 .login {
-    position:absolute;
+    position:relative;
     left:35%;
     height:150px;
     width:25%;
@@ -78,7 +83,7 @@ div {
     box-shadow: 0 0 5px 1px; 
 }
 .reg {
-    position:absolute;
+    position:relative;
     left:35%;    
     height: 300px;
     width: 25%;
@@ -96,13 +101,16 @@ div {
     margin:3px;
     padding:15px;
     box-shadow: 0 0 50px 10px; 
-    z-index:1;
-} 
+    z-index:2;
+}
+.textnews{
+width:100%;height:100px;
+}
 .news {
-    position:absolute;
+    position:relative;
     height: 80%;
     width: 30%;
-    left:240px;
+    left:235px;
     top:50px;
     overflow-x: hidden;
     margin:3px;
@@ -110,7 +118,7 @@ div {
     box-shadow: 0 0 5px 1px;    
 }   
 .msg {
-    position:absolute;
+    position:relative;
     height: 50%;
     width: 500px;
     left:250px;
@@ -121,7 +129,7 @@ div {
     box-shadow: 0 0 5px 1px;    
 }   
 .friends {
-    position:absolute;
+    position:relative;
     height: 50%;
     width: 500px;
     left:250px;

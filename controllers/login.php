@@ -1,19 +1,17 @@
 <?php
 $error = array();
+//error_reporting(-1);
 $fl_log=0;
 //если пользователь уже авторизирован
-$login='';
-if (isset($_SESSION['user']))  {
-   if ($_SESSION['user']!='') {
-        $login=$_SESSION['user']; 
-        $fl_log=1;
-   }
+if (isset($_SESSION['iduser']))  {
+        header('Location: /user/');
 }
-
+$title='Авторизация';
+$user='';
 if ( (isset($_POST['login']) || isset($_POST['password'])) && ($fl_log==0) ) {
 
     $login = $_POST['login'];
-    $password = $_POST['password'];
+    $password = md5($_POST['password']);
 
     if  (($login == '') || ($password == '')) {
         $error[] = 'Введите имя пользователя и пароль!';
@@ -30,30 +28,18 @@ if ( (isset($_POST['login']) || isset($_POST['password'])) && ($fl_log==0) ) {
         if (!isset($res)) {
             $error[] = "Не верные имя пользователя или пароль!";
         } else {
-            $_SESSION['user']=$res['login'];
+            //$_SESSION['user']=$res['login'];
             $_SESSION['iduser']=$res['id'];
             $fl_log=1;
+            header('Location: /news/');
+            
         }
-    }    
-}
+    }
 
-if ($fl_log==0) {
-    $title='Авторизация';
-    display('login',compact('error','title'));
-} else {
-    $title='Авторизация';
     $user=$login;
-    display('login',compact('error','title','user'));
-    //$title='Главная страница';
-    //$user=$login;
-    //$buf_path='../';
-    //$mode='';
-    //if (isset($_GET['m'])) {
-        //$mode=$_GET['m'];
-    //}
-    //debug($_GET);
-    //display('user',compact('title','user','buf_path','mode'));
 }
+display('login',compact('error','title','user'));
+
 
 
 
