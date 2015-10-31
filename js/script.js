@@ -26,8 +26,8 @@ function showeditpanel(ind)
         str="<div id='news"+ind+"' class='hidden1'>\
         <form action='/news/' method ='POST'>\
         <input name='inddelnews' class='hidden' value='"+ind+"'>\
-        <button class='b3' title='Редактировать'><img src='../static/edit.png'></button>\
-        <button type='submit' class='b3' title='Удалить'><img src='../static/delete.png'></button>\
+        <button class='b3' title='Редактировать'><img src='/static/edit.png'></button>\
+        <button type='submit' class='b3' title='Удалить'><img src='/static/delete.png'></button>\
         </form>\
         </div>";
         el.outerHTML =str;
@@ -44,15 +44,30 @@ function form_add_news()
     
     if (!headnews) {
         headnews=el.innerHTML;
-        str=str+headnews+"<div class='addnews'><form action='/news/' method ='POST'>";
-        str=str+"<textarea class='textnews' name='textnews' placeholder='текст сообщения'></textarea>";
-        str=str+"<br/><input class='b1' type='submit' value='Сохранить'>";
-        str=str+"&nbsp;<input onclick=close_news_news() class='b2' type='button' value='Закрыть'>";
-        str=str+"</form></div>";
+        str=str+headnews+"<div class='addnews'><form action='/news/' method ='POST'>\
+        <textarea class='textnews' name='textnews' placeholder='текст сообщения'></textarea>\
+        <br/><input class='b1' type='submit' value='Сохранить'>\
+        &nbsp;<input id='closeAddNews' class='b2' type='button' value='Закрыть'>\
+        </form></div>";
         el.innerHTML=str;
     }
 }
-function close_news_news() {
+function close_add_news() {
     document.getElementById('headnews').innerHTML=headnews;
     headnews='';
+}
+function getEvent(e) {
+    if (!e) e = window.event;
+    //var t = e.target || e.srcElement;
+    //alert(e.target.id);
+    if (e.target.id=='addNews') form_add_news();
+    if (e.target.id=='closeAddNews') close_add_news();
+    if (e.target.className=='trnews') {
+        showeditpanel(e.target.id);
+    }
+    //if (e.target.className=='tdDelFriend') {
+        //showeditpanel(e.target.id);
+//        alert(e.target.id);
+    //}
+    
 }

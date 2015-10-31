@@ -1,2 +1,35 @@
 <?php include "menu.phtml"; ?>
-<div class='headdiv' id='headnews'>Сообщения</div>
+<div class="d1">
+    <div class="headdiv" id="headnews">Сообщения</div>
+
+
+
+    <div class="d2">
+        <!-- если выбран диалог -->
+        <?php if ($idFriend!=''): ?>
+            Диалог с <?=$logFriend?> <hr>
+            <div class="dialog">
+                <?php foreach ($arrOut as $v): ?>
+                <b><?=$v['autor']?></b> &nbsp <?=$v['data']?><br/>
+                <?=$v['text']?><br/><br/>
+    
+                <?php endforeach; ?>
+            </div>
+
+            <form action="/msg/?idf=<?=$idFriend?>" method ="POST">
+                <textarea class="msgtext" placeholder="текст сообщения" name="newMsg"/></textarea>
+                <br><input class="b1" type="submit" value="Отправить">
+            </form>    
+        <?php else: ?>
+            
+        <!-- список диалогов -->
+            <table>
+                <?php foreach ($arrOut as $v): ?>
+                    <tr>
+                        <td><a href="/msg/?idf=<?=$v['idfriend']?>"><b><?=$v['friend']?></b></a></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php endif; ?>
+    </div>
+</div>

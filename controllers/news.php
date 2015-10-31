@@ -19,15 +19,13 @@ if (isset($_POST['inddelnews'])) {
 }
 /////////////////////////////////////
 
-$q = $db->query(" SELECT news.*, users.login 
+$q = $db->query(" SELECT news.id, news.text, news.data, users.login  
 FROM `news` INNER JOIN users ON users.id = news.idautor 
 WHERE `iduser` = $iduser ORDER BY `data` DESC");
 $i=0;
+$arr_out = array();
 while($res = $q->fetch_assoc()) {
-    $i=$res['id'];
-    $arr_out[$i]['text']=$res['text'];
-    $arr_out[$i]['data']=$res['data'];
-    $arr_out[$i]['autor']=$res['login'];
+    $arr_out[] = $res;
 }
 $title="Новости";
 

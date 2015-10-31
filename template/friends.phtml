@@ -1,2 +1,53 @@
-<?php include "menu.phtml"; ?>
-<div class='headdiv' id='headnews'>Друзья</div>
+<?php include "menu.phtml";?>
+<div class='d1'>
+<form action='/friends/?m=find' method='POST'>
+<div class='headdiv' id='headnews'>Друзья
+        <input class='b3' type='submit' value='поиск'>
+</div>
+</form>
+<!--если режим поиска пользователя-->
+<div class='d2' onclick=getEvent(event)>
+
+<?php if ($find!=''): ?>
+    <form action='/friends/?m=find' method='POST'>
+     Имя пользователя:<input name='find_user' type='text' value='<?=$findUser?>'>
+    </form>
+    <table>
+    <?php foreach ($arrFindUser as $v): ?>
+        <tr>
+            <td>
+                <?=$v['login'];?>
+            </td>
+            <td>
+                <form action='/friends/' method ='POST'>
+                <button class='b3' title='Добавить в друзья'><img src='/static/add.png'></button>
+                <input name='idAddFriend' class='hidden' value='<?=$v['id'];?>'>
+                </form>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </table>
+<?php else : ?>
+    <table>
+    <?php foreach ($arrOut as $v): ?>
+    <tr>
+        <td>
+            <?=$v['login'];?>
+        </td>
+        <td>
+            <a href="/msg/?idf=<?=$v['idfriend'];?>">
+            <button class='b3' title='Отправить сообщение'><img src='/static/msg.png'></button>
+            </a>
+        </td>
+        <td>
+            <form action='/friends/' method ='POST'>
+            <button class='b3' title='Удалить из друзей'><img src='/static/delete.png'></button>
+            <input name='idDelFriend' class='hidden' value='<?=$v['idfriend'];?>'>
+            </form>
+        </td>
+    </tr>
+    <?php endforeach; ?>
+    </table>
+<?php endif; ?>
+</div>
+</div>

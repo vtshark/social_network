@@ -63,10 +63,10 @@ function debug($string) {
 function checklogin($db) {
     $arr_user=array();
     if (isset($_SESSION['iduser']))  {
-    $iduser=$arr_user['id']=$_SESSION['iduser'];
+    $iduser=$_SESSION['iduser'];
     $q = $db->query(" SELECT `id`, `login` FROM `users` WHERE `id` = $iduser");
         $res = $q->fetch_assoc();
-        $arr_user['login']=$res['login'];
+        $arr_user=$res;
     } else {
         header('Location: /login/');
     }
