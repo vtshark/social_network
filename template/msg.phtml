@@ -7,13 +7,11 @@
     <div class="d2">
         <!-- если выбран диалог -->
         <?php if ($idFriend!=''): ?>
-            Диалог с <?=$logFriend?> <hr>
-            <div class="dialog">
-                <?php foreach ($arrOut as $v): ?>
-                <b><?=$v['autor']?></b> &nbsp <?=$v['data']?><br/>
-                <?=$v['text']?><br/><br/>
-    
-                <?php endforeach; ?>
+            Диалог с <?=$logFriend?><input class='hidden' id='idfriend' value='<?=$idFriend?>'> <hr>
+            <div class="dialog" id="dialog">
+
+
+
             </div>
 
             <form action="/msg/?idf=<?=$idFriend?>" method ="POST">

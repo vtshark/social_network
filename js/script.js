@@ -1,19 +1,23 @@
 var indnews=0;
 var headnews='';
-///* Создание нового объекта XMLHttpRequest*/
-//var xmlHttp = false;
-//try {
-//  xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-//} catch (e) {
-//  try {
-//    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-//  } catch (e2) {
-//    xmlHttp = false;
-//  }
-//}
-//if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
-//  xmlHttp = new XMLHttpRequest();
-//}
+var idinterval;
+/* Создание нового объекта XMLHttpRequest*/
+function createXmlHttp() {
+    var xmlHttp = false;
+    try {
+    xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+    try {
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+    } catch (e2) {
+        xmlHttp = false;
+    }
+    }
+    if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+        xmlHttp = new XMLHttpRequest();
+    }
+    return xmlHttp;
+}    
 ////////////////////////////////////////////
 
 function showeditpanel(ind)
@@ -23,10 +27,10 @@ function showeditpanel(ind)
     if ((indnews!=0)&&(indnews!=ind))  {
         hideeditpanel(indnews);
     }   
+        //<button class='b3' title='Редактировать'><img src='/static/edit.png'></button>\
         str="<div id='news"+ind+"' class='hidden1'>\
         <form action='/news/' method ='POST'>\
         <input name='inddelnews' class='hidden' value='"+ind+"'>\
-        <button class='b3' title='Редактировать'><img src='/static/edit.png'></button>\
         <button type='submit' class='b3' title='Удалить'><img src='/static/delete.png'></button>\
         </form>\
         </div>";
@@ -65,9 +69,28 @@ function getEvent(e) {
     if (e.target.className=='trnews') {
         showeditpanel(e.target.id);
     }
-    //if (e.target.className=='tdDelFriend') {
-        //showeditpanel(e.target.id);
-//        alert(e.target.id);
-    //}
-    
 }
+function loadf() {
+    if (document.getElementById("dialog"))  {
+        refreshDialog();
+        setInterval('refreshDialog()', 5000);
+    }
+    //clearInterval(idinterval);
+}
+function refreshDialog() {
+	var url = "/template/newmsg.phtml?idf="+document.getElementById('idfriend').value;
+	xmlHttp=createXmlHttp();
+	xmlHttp.open("GET", url, false);
+	xmlHttp.onreadystatechange = refreshDialog1;
+	xmlHttp.send(null);
+}
+function refreshDialog1() {
+     if (xmlHttp.readyState == 4)
+   {
+  	var response = xmlHttp.responseText;
+   	var el=document.getElementById('dialog');
+    el.innerHTML=response;
+   }
+}
+
+

@@ -1,0 +1,22 @@
+<?php
+session_start();
+require "../core/config.php";
+require "../core/db.php";
+require "../core/func.php";
+
+$idFriend="";
+if (isset($_GET['idf'])) {
+    $idFriend=$_GET['idf'];
+}
+$iduser=$_SESSION['iduser'];
+//echo $idFriend."---".$iduser;
+$arrOut=readMsg($db,$iduser,$idFriend);
+?>
+
+<?php foreach ($arrOut as $v): ?>
+    <b><?=$v['autor']?></b> &nbsp <?=$v['data']?><br/>
+    <?=$v['text']?><br/><br/>
+<?php endforeach; ?>
+
+
+

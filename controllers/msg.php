@@ -5,6 +5,7 @@ $iduser=$arr_user['id'];
 $title = "Сообщения";
 $idFriend='';
 $logFriend='';
+$arrOut = array();
 
 // если выбран диалог, id собеседника
 if (isset($_GET['idf'])) {
@@ -34,15 +35,8 @@ if (isset($_GET['idf'])) {
         }    
     }
     //выборка сообщений пользователя с другом
-    $q = $db->query(" SELECT `users_vs_messages`.*, `msg`.`text`, users.login as autor  
-        FROM (`users_vs_messages` INNER JOIN `msg` ON `msg`.`id` = `users_vs_messages`.`idmsg`)
-        INNER JOIN `users` ON `users`.id=`users_vs_messages`.`idautor`
-        WHERE `users_vs_messages`.`iduser` = $iduser AND `users_vs_messages`.`idFriend`=$idFriend 
-        ORDER BY `users_vs_messages`.`data` DESC");
-    $arrOut = array();
-    while($res = $q->fetch_assoc()) {
-        $arrOut[] = $res;
-    }
+    //$arrOut=readMsg($db,$iduser,$idFriend);
+
 } else {
 // если диалог не выбран
     //, `users`.`login` as `friend`
@@ -51,7 +45,6 @@ if (isset($_GET['idf'])) {
         FROM `users_vs_messages` INNER JOIN `users` ON `users`.`id`=`users_vs_messages`.`idfriend` 
         WHERE `users_vs_messages`.`iduser` = $iduser 
         GROUP BY `users_vs_messages`.`idfriend`");
-    $arrOut = array();
     while($res = $q->fetch_assoc()) {
         $arrOut[] = $res;
     }

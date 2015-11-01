@@ -72,3 +72,17 @@ function checklogin($db) {
     }
     return $arr_user;
 }
+
+//////////выборка сообщений пользователя с другом
+function readMsg($db,$iduser,$idFriend) {
+    $q = $db->query(" SELECT `users_vs_messages`.*, `msg`.`text`, users.login as autor  
+        FROM (`users_vs_messages` INNER JOIN `msg` ON `msg`.`id` = `users_vs_messages`.`idmsg`)
+        INNER JOIN `users` ON `users`.id=`users_vs_messages`.`idautor`
+        WHERE `users_vs_messages`.`iduser` = $iduser AND `users_vs_messages`.`idFriend`=$idFriend 
+        ORDER BY `users_vs_messages`.`data` DESC");
+    $arrOut = array();
+    while($res = $q->fetch_assoc()) {
+        $arrOut[] = $res;
+    }
+    return $arrOut;
+}
