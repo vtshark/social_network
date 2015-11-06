@@ -1,7 +1,8 @@
 var indnews=0;
 var headnews='';
 var idinterval;
-/* Создание нового объекта XMLHttpRequest*/
+var maxscroll=0;
+
 function createXmlHttp() {
     var xmlHttp = false;
     try {
@@ -28,10 +29,11 @@ function showeditpanel(ind)
         hideeditpanel(indnews);
     }   
         //<button class='b3' title='Редактировать'><img src='/static/edit.png'></button>\
-        str="<div id='news"+ind+"' class='hidden1'>\
-        <form action='/news/' method ='POST'>\
+        var id=document.getElementById('idUserWall').value;
+        str="<div id='news"+ind+"' class='hidden1 divleft'>\
+        <form style='float:left;' action='/user/?id="+id+"' method ='POST'>\
         <input name='inddelnews' class='hidden' value='"+ind+"'>\
-        <button type='submit' class='b3' title='Удалить'><img src='/static/delete.png'></button>\
+        <button style='float:left;' type='submit' class='b3' title='Удалить'><img src='/static/delete.png'></button>\
         </form>\
         </div>";
         el.outerHTML =str;
@@ -48,7 +50,8 @@ function form_add_news()
     
     if (!headnews) {
         headnews=el.innerHTML;
-        str=str+headnews+"<div class='addnews'><form action='/news/' method ='POST'>\
+        var id=document.getElementById('idUserWall').value;
+        str=str+headnews+"<div class='addnews'><form action='/user/?id="+id+"' method ='POST'>\
         <textarea class='textnews' name='textnews' placeholder='текст сообщения'></textarea>\
         <br/><input class='b1' type='submit' value='Сохранить'>\
         &nbsp;<input id='closeAddNews' class='b2' type='button' value='Закрыть'>\
@@ -61,36 +64,55 @@ function close_add_news() {
     headnews='';
 }
 function getEvent(e) {
-    if (!e) e = window.event;
-    //var t = e.target || e.srcElement;
     //alert(e.target.id);
+    if (!e) e = window.event;
     if (e.target.id=='addNews') form_add_news();
     if (e.target.id=='closeAddNews') close_add_news();
-    if (e.target.className=='trnews') {
+    if (e.target.className=='trwall clearleft') {
         showeditpanel(e.target.id);
     }
+    if (e.target.id=='sendMsg') sendMsg();
+    
 }
 function loadf() {
     if (document.getElementById("dialog"))  {
-        refreshDialog();
-        setInterval('refreshDialog()', 5000);
+        refreshDialog(0);
+        document.getElementById("dialog").scrollTop = 9999;
+        maxscroll=document.getElementById("dialog").scrollTop;
+        setInterval('refreshDialog(1)', 5000);
     }
     //clearInterval(idinterval);
 }
-function refreshDialog() {
-	var url = "/template/newmsg.phtml?idf="+document.getElementById('idfriend').value;
+function refreshDialog(prizn) {
+	var url = "/template/newmsg.phtml?idf="+document.getElementById('idfriend').value+"&prizn="+prizn;
 	xmlHttp=createXmlHttp();
 	xmlHttp.open("GET", url, false);
-	xmlHttp.onreadystatechange = refreshDialog1;
+	xmlHttp.onreadystatechange = function() {
+	    if (xmlHttp.readyState == 4)   {
+            var response = xmlHttp.responseText;
+       	    var el=document.getElementById('dialog');
+            el.innerHTML=el.innerHTML+response;
+    	    if (document.getElementById("dialog").scrollTop >= (maxscroll-40)) {
+	            document.getElementById("dialog").scrollTop = 9999;
+                maxscroll=document.getElementById("dialog").scrollTop;
+	        }
+        }
+	}
 	xmlHttp.send(null);
 }
-function refreshDialog1() {
-     if (xmlHttp.readyState == 4)
-   {
-  	var response = xmlHttp.responseText;
-   	var el=document.getElementById('dialog');
-    el.innerHTML=response;
-   }
+function sendMsg() {
+    var idfriend=document.getElementById("idfriend").value;
+    var newMsg=document.getElementById("newMsg").value;
+    var url = "/core/saveMsg.php?idfriend="+idfriend+"&newMsg="+newMsg;
+    xmlHttp=createXmlHttp();
+	xmlHttp.open("GET", url, false);
+	xmlHttp.onreadystatechange = function() {
+	
+	        if (xmlHttp.readyState == 4)   {
+            var response = xmlHttp.responseText; 
+            document.getElementById("newMsg").value='';
+            refreshDialog(1);
+	    }
+    }
+    xmlHttp.send(null);
 }
-
-

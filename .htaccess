@@ -1,5 +1,10 @@
 AddDefaultCharset UTF-8
 
 RewriteEngine on
+
+RewriteCond %{REQUEST_URI} !\.[^./]+$
+RewriteCond %{REQUEST_URI} !(.*)/$
+RewriteRule ^(.*)$ /$1/ [R=301,L]
+
 RewriteCond %{REQUEST_FILENAME} !/static/
 RewriteRule ^([a-zA-Z0-9\-\_\/]+)/$ index.php?act=$1 [L,QSA]

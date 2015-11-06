@@ -18,9 +18,10 @@ if (isset($_POST['login']) ) {
     if (($_POST['email'] == "") || (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) ) {
          $error[]="Некорректный e-mail!";
     }
-    $email=$_POST['email'];
-    $pass=$_POST['password'];
-    $pass1=$_POST['password1'];
+    $email=$db->real_escape_string($_POST['email']);
+    $pass=$db->real_escape_string($_POST['password']);
+    $pass1=$db->real_escape_string($_POST['password1']);
+    $login=$db->real_escape_string($login);
     
     if (($pass == "") || ($pass1 == "")) {
         $error[]="Введите и подтвердите пароль!";

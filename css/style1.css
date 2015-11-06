@@ -4,6 +4,25 @@ body { background:#4F5D55;
     flex-wrap: wrap;
     align-content: flex-start;
 }
+ p {
+    font-style: italic;
+    font-size:9pt;
+   }
+.right {
+    text-align:right;
+}
+.left {
+    text-align:left;
+}
+.divright {
+    float:right;
+}
+.divleft {
+    float:left;
+}
+.clearleft {
+    clear:left;
+}
 .b1 {
 	background: linear-gradient(#414B5E, #000000);
 	border: 0px inset #000000;
@@ -38,15 +57,25 @@ body { background:#4F5D55;
 img {
     cursor:pointer;  
 }
+.trmenu{
+    font-weight: bold;
+}
 .trmenu:hover {
-    background: #B9CFB1;
+    background: #b0bEb6;
     cursor:pointer;
    }
 .pointer:hover {
     cursor:pointer;
    }
+.trnews {
+    font-weight: bold;    
+}
 .trnews:hover {
     cursor:pointer;
+   }
+.trwall:hover {
+    cursor:pointer;
+    background: #b0bEb6;
    }
 .hidden {
     visibility: hidden;
@@ -114,7 +143,7 @@ height:100px;
     border-radius: 5px;
     top:0px;
     height: 200px;
-    width: 200px;
+    width: 150px;
 	margin:3px;
     padding:10px;
     box-shadow: 0 0 5px 1px; 

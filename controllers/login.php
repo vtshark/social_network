@@ -10,7 +10,7 @@ $title='Авторизация';
 $user='';
 if ( (isset($_POST['login']) || isset($_POST['password'])) && ($fl_log==0) ) {
 
-    $login = $_POST['login'];
+    $login = $db->real_escape_string($_POST['login']);
     $password = md5($_POST['password']);
 
     if  (($login == '') || ($password == '')) {
@@ -31,7 +31,7 @@ if ( (isset($_POST['login']) || isset($_POST['password'])) && ($fl_log==0) ) {
             //$_SESSION['user']=$res['login'];
             $_SESSION['iduser']=$res['id'];
             $fl_log=1;
-            header('Location: /news/');
+            header('Location: /user/');
             
         }
     }

@@ -8,14 +8,20 @@ $idFriend="";
 if (isset($_GET['idf'])) {
     $idFriend=$_GET['idf'];
 }
+$prizn=$_GET['prizn']; //признак первого считывания сообщений из диалога
 $iduser=$_SESSION['iduser'];
-//echo $idFriend."---".$iduser;
-$arrOut=readMsg($db,$iduser,$idFriend);
+$arrOut=readMsg($db,$iduser,$idFriend,$prizn);
 ?>
 
 <?php foreach ($arrOut as $v): ?>
-    <b><?=$v['autor']?></b> &nbsp <?=$v['data']?><br/>
-    <?=$v['text']?><br/><br/>
+    <?php if ($v['id_user']==$v['id_autor']): ?>
+        <div align=left>
+    <?php else: ?>
+        <div align=right>
+    <?php endif; ?>
+            <b><?=out($v['autor'])?></b> &nbsp <?=$v['date'] ?><br/>
+            <?=out($v['text'])?>
+        </div><br/>
 <?php endforeach; ?>
 
 

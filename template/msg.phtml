@@ -1,5 +1,5 @@
 <?php include "menu.phtml"; ?>
-<div class="d1">
+<div class="d1" onclick=getEvent(event)>
     <div class="headdiv" id="headnews">Сообщения</div>
 
 
@@ -8,26 +8,24 @@
         <!-- если выбран диалог -->
         <?php if ($idFriend!=''): ?>
             Диалог с <?=$logFriend?><input class='hidden' id='idfriend' value='<?=$idFriend?>'> <hr>
+
             <div class="dialog" id="dialog">
-
-
-
             </div>
 
-            <form action="/msg/?idf=<?=$idFriend?>" method ="POST">
-                <textarea class="msgtext" placeholder="текст сообщения" name="newMsg"/></textarea>
-                <br><input class="b1" type="submit" value="Отправить">
-            </form>    
+                <textarea class="msgtext" placeholder="текст сообщения" id="newMsg" name="newMsg"/></textarea>
+                <br><input class="b1" type="button" id='sendMsg' value="Отправить">
+    
         <?php else: ?>
             
         <!-- список диалогов -->
-            <table>
+
                 <?php foreach ($arrOut as $v): ?>
-                    <tr>
-                        <td><a href="/msg/?idf=<?=$v['idfriend']?>"><b><?=$v['friend']?></b></a></td>
-                    </tr>
+                    <div>
+                        <a href="/msg/?idf=<?=$v['id_friend']?>"><b><?=$v['friend']?></b></a>
+                    </div>
+                    <br/>
                 <?php endforeach; ?>
-            </table>
+
         <?php endif; ?>
     </div>
 </div>

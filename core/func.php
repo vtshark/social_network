@@ -61,12 +61,12 @@ function debug($string) {
 
 //проверка авторизации, возврат id и login
 function checklogin($db) {
-    $arr_user=array();
+    $arr_user = array();
     if (isset($_SESSION['iduser']))  {
-    $iduser=$_SESSION['iduser'];
+    $iduser = $_SESSION['iduser'];
     $q = $db->query(" SELECT `id`, `login` FROM `users` WHERE `id` = $iduser");
         $res = $q->fetch_assoc();
-        $arr_user=$res;
+        $arr_user = $res;
     } else {
         header('Location: /login/');
     }
@@ -74,15 +74,37 @@ function checklogin($db) {
 }
 
 //////////выборка сообщений пользователя с другом
-function readMsg($db,$iduser,$idFriend) {
-    $q = $db->query(" SELECT `users_vs_messages`.*, `msg`.`text`, users.login as autor  
-        FROM (`users_vs_messages` INNER JOIN `msg` ON `msg`.`id` = `users_vs_messages`.`idmsg`)
-        INNER JOIN `users` ON `users`.id=`users_vs_messages`.`idautor`
-        WHERE `users_vs_messages`.`iduser` = $iduser AND `users_vs_messages`.`idFriend`=$idFriend 
-        ORDER BY `users_vs_messages`.`data` DESC");
-    $arrOut = array();
+function readMsg($db,$iduser,$idFriend,$prizn) {
+    $arrOut = array();    
+    //если первый запуск ф-ии после загрузки диалога, считываем последние 10 сообщений
+    if ($prizn==0) {
+        $q = $db->query(" SELECT `users_vs_messages`.*, `msg`.`text`, `users`.`login` as `autor` 
+            FROM (`users_vs_messages` INNER JOIN `msg` ON `msg`.`id` = `users_vs_messages`.`id_msg`)
+            INNER JOIN `users` ON `users`.id=`users_vs_messages`.`id_autor`
+            WHERE `users_vs_messages`.`id_user` = $iduser AND `users_vs_messages`.`id_Friend`=$idFriend 
+            AND `users_vs_messages`.`prizn_read`=true 
+            ORDER BY id DESC LIMIT 10");
+        while($res = $q->fetch_assoc()) {
+            $arrOut[] = $res;
+        }
+        $arrOut=array_reverse($arrOut);
+    }
+    //при последующих вызовах функции считываем только новые сообщения
+    $q = $db->query(" SELECT `users_vs_messages`.*, `msg`.`text`, `users`.`login` as `autor` 
+        FROM (`users_vs_messages` INNER JOIN `msg` ON `msg`.`id` = `users_vs_messages`.`id_msg`)
+        INNER JOIN `users` ON `users`.id=`users_vs_messages`.`id_autor`
+        WHERE `users_vs_messages`.`id_user` = $iduser AND `users_vs_messages`.`id_Friend`=$idFriend 
+        AND `users_vs_messages`.`prizn_read`=false 
+        ORDER BY id");
+
     while($res = $q->fetch_assoc()) {
         $arrOut[] = $res;
     }
+
+    //устанавливем признак просмотренного сообщения
+    $strsql = "UPDATE `users_vs_messages` SET `prizn_read`=true  WHERE `id_user`=$iduser and 
+    `prizn_read`=false";
+    $q = $db->query($strsql);
+
     return $arrOut;
 }

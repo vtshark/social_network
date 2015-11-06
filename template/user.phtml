@@ -1,1 +1,35 @@
 <?php include "menu.phtml"; ?>
+
+<div class="d1" onclick=getEvent(event)>
+    <div class="headdiv" id="headnews">Пользователь:<?=$logUserWall?>
+        <input type="text" id="idUserWall" class='hidden' value="<?=$idUserWall?>"/>
+    </div>
+
+        <div class='d2'>
+            <div><img id='addNews' src='/static/add.png' title='Добавить запись'></div>
+                                <!--<div class='hidden' id='news<?=$v['id']?>'></div> -->
+                <?php if (isset($arr_out)): ?>
+                    <?php foreach ($arr_out as $v): ?>
+                            
+                            <div  class='trnews divleft'>
+                                <a  href="/user/?id=<?=$v['id_autor'];?>">
+                                  <?=$v['autor']?>  
+                                </a>
+                            </div>
+                            
+                            <?php if ( ($iduser==$v['id_autor']) || ($iduser==$idUserWall) ) : ?>    
+                                <div  class='divleft' id='news<?=$v['id']?>'></div>
+                            <?php endif; ?>
+                            
+                            <div class='trwall clearleft' id='<?=$v['id']?>'>
+                                <br/><?=$v['text']; ?><br/>
+                            </div>
+                            <div>    
+                                <p><?=$v['date']; ?></p>
+                            </div>
+                            <br/>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+
+        </div>
+</div>        
