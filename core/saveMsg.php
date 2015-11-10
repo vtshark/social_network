@@ -5,6 +5,7 @@ require "db.php";
 require "func.php";
 $iduser=$_SESSION['iduser'];
 $idFriend=$_GET['idfriend'];
+checklogin($db);
 //добавление сообщения
 if (isset($_GET['newMsg'])) {
         if ($_GET['newMsg']!='') {

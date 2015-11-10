@@ -2,11 +2,14 @@
 $arr_user = checklogin($db);
 $user = $arr_user['login'];
 $iduser = $arr_user['id'];
+$online = $arr_user['online'];
+$online=getOnline($online);
 $arr_out = array();
  
 $idUserWall = '';
 $logUserWall = '';
 
+///если зашли на страницу другого пользователя///
 if (isset($_GET['id'])) {
     $idUserWall = $_GET['id'];
 }
@@ -14,10 +17,15 @@ if ($idUserWall=='') {
  $idUserWall = $iduser;
  $logUserWall = $user;
 } else {
-    $q = $db->query(" SELECT `login` FROM `users` WHERE `id` = $idUserWall");
+    $q = $db->query(" SELECT `login`,online FROM `users` WHERE `id` = $idUserWall");
     $res = $q->fetch_assoc();
     $logUserWall = $res['login'];
+    $online = $res['online'];
+
+    $online=getOnline($online);
+    
     if ($logUserWall=='') {
+        //если указан не существующий ID
         header('Location:/user/');
     }
 }
@@ -37,7 +45,7 @@ if (isset($_POST['inddelnews'])) {
                 $q = $db->query($strsql);
     }
 }
-/////////////////////////////////////
+///Чтение таблицы стены пользователя/////
 $q = $db->query(" SELECT `news`.`id`, `news`.`text`, `news`.`date`, `news`.`id_autor`, `users`.`login` as `autor` 
 FROM `news` INNER JOIN `users` ON `users`.`id` = `news`.`id_autor` 
 WHERE `id_user` = $idUserWall ORDER BY `news`.`id` DESC LIMIT 20");
@@ -46,4 +54,12 @@ $arr_out = array();
 while($res = $q->fetch_assoc()) {
     $arr_out[] = $res;
 }
-display("user", compact('title', 'user','iduser','arr_out','idUserWall','logUserWall'));
+///аватарка////////
+$filename='static/users/id/'.$idUserWall.'/ava.jpg';
+if (file_exists($filename)) {
+    $ava='<img src="/'.$filename.'">';
+} else {
+    $ava='';
+}
+
+display("user", compact('title', 'user','iduser','arr_out','idUserWall','logUserWall','ava','online'));

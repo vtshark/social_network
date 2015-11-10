@@ -63,10 +63,15 @@ function debug($string) {
 function checklogin($db) {
     $arr_user = array();
     if (isset($_SESSION['iduser']))  {
-    $iduser = $_SESSION['iduser'];
-    $q = $db->query(" SELECT `id`, `login` FROM `users` WHERE `id` = $iduser");
-        $res = $q->fetch_assoc();
-        $arr_user = $res;
+        $iduser = $_SESSION['iduser'];
+        //обновление времени  online у пользвателя
+        $strsql = "UPDATE `users` SET `online`=NOW()  WHERE `id`=$iduser";
+        $q = $db->query($strsql);    
+
+        $q = $db->query(" SELECT `id`, `login`, `online` FROM `users` WHERE `id` = $iduser");
+            $res = $q->fetch_assoc();
+            $arr_user = $res;
+
     } else {
         header('Location: /login/');
     }
@@ -108,3 +113,25 @@ function readMsg($db,$iduser,$idFriend,$prizn) {
 
     return $arrOut;
 }
+function getOnline($time) {
+    $strOut='';
+    if ($time!='') {
+        $timeDiff=(int)((strtotime(NOW)-strtotime($time))/60);
+        
+        if ($timeDiff>5) {
+            if ($timeDiff<30) {
+                $strOut="<p>был в сети $timeDiff мин назад</p>";
+            } else {
+                $strOut="<p>не в сети</p>";
+            }
+            
+        } else {
+            $strOut="<p>в сети</p>";
+        }
+
+    } else {
+        $strOut="<p>не в сети</p>";
+    }
+   return $strOut;
+}
+

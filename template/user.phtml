@@ -1,7 +1,16 @@
 <?php include "menu.phtml"; ?>
 
 <div class="d1" onclick=getEvent(event)>
-    <div class="headdiv" id="headnews">Пользователь:<?=$logUserWall?>
+    <div class="headdiv" id="headnews">
+        <b><?=$logUserWall?></b>
+        <div class="ava"><?=$ava?></div>
+        <?php if ( ($iduser!=$idUserWall) ) : ?>    
+                <a  href="/msg/?idf=<?=$idUserWall;?>">
+                <button class='b3' title='Отправить сообщение'><img src='/static/msg.png'></button>
+                </a>
+        <?php endif; ?>
+        <?=$online?>
+
         <input type="text" id="idUserWall" class='hidden' value="<?=$idUserWall?>"/>
     </div>
 
@@ -27,7 +36,7 @@
                             <div>    
                                 <p><?=$v['date']; ?></p>
                             </div>
-                            <br/>
+                            <hr>
                     <?php endforeach; ?>
                 <?php endif; ?>
 

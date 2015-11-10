@@ -1,5 +1,5 @@
 <div>
-<?php if (isset($error)): ?>
+<?php if (isset($error) && !empty($error)): ?>
     <?php foreach ($error as $val): ?>
         <font color="#C0AFAB"><?=$val; ?></font><br/>
     <?php endforeach; ?>

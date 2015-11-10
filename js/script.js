@@ -72,7 +72,6 @@ function getEvent(e) {
         showeditpanel(e.target.id);
     }
     if (e.target.id=='sendMsg') sendMsg();
-    
 }
 function loadf() {
     if (document.getElementById("dialog"))  {

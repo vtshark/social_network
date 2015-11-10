@@ -1,0 +1,15 @@
+<?php include "menu.phtml"; ?>
+<div class="d1">
+<div class='d2'>
+        Настройки профиля <?=$user?>
+        <hr>
+        <div class="ava"><?=$ava?></div>
+        <form action="/settings/" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="MAX_FILE_SIZE" value="500000" />
+                <input type="file" name="userfile"/>
+                <br/><br/>
+                <input class='b1' type="submit" value="Обновить аватар"/>
+        </form>
+        <hr>        
+</div>
+</div>

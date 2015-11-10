@@ -1,14 +1,14 @@
 <?php include "menu.phtml"; ?>
 <div class="d1" onclick=getEvent(event)>
-    <div class="headdiv" id="headnews">Сообщения</div>
-
-
 
     <div class="d2">
         <!-- если выбран диалог -->
         <?php if ($idFriend!=''): ?>
-            Диалог с <?=$logFriend?><input class='hidden' id='idfriend' value='<?=$idFriend?>'> <hr>
-
+            <input class='hidden' id='idfriend' value='<?=$idFriend?>'>
+                Диалог с <a  href="/user/?id=<?=$idFriend;?>"><b><?=$logFriend?></b></a>
+                <div class='right'><?=$online?></div>
+            
+            <hr>
             <div class="dialog" id="dialog">
             </div>
 
@@ -18,12 +18,17 @@
         <?php else: ?>
             
         <!-- список диалогов -->
-
+                Диалоги
+                <hr>
                 <?php foreach ($arrOut as $v): ?>
                     <div>
-                        <a href="/msg/?idf=<?=$v['id_friend']?>"><b><?=$v['friend']?></b></a>
+                        <a href="/msg/?idf=<?=$v['id_friend']?>"><b><?=$v['friend']?></b>
+                        <div class='ava'><?=$avaArr[$v['id_friend']]?></div>
+                        
+                        </a>
+                            <?=getOnline($v['online'])?>
                     </div>
-                    <br/>
+                    <hr>
                 <?php endforeach; ?>
 
         <?php endif; ?>

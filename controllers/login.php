@@ -32,10 +32,8 @@ if ( (isset($_POST['login']) || isset($_POST['password'])) && ($fl_log==0) ) {
             $_SESSION['iduser']=$res['id'];
             $fl_log=1;
             header('Location: /user/');
-            
         }
     }
-
     $user=$login;
 }
 display('login',compact('error','title','user'));

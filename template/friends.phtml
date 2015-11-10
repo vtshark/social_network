@@ -1,36 +1,86 @@
 <?php include "menu.phtml";?>
 <div class='d1'>
-<form action='/friends/?m=find' method='POST'>
-<div class='headdiv' id='headnews'>Друзья
-        <input class='b3' type='submit' value='поиск'>
-</div>
-</form>
-<!--если режим поиска пользователя-->
+
+
 <div class='d2' onclick=getEvent(event)>
 
+<form action='/friends/?m=find' method='POST'>
+        <input class='b3' type='submit' value='поиск'>
+</form>
+<hr>
+<!--если режим поиска пользователя-->
 <?php if ($find!=''): ?>
     <form action='/friends/?m=find' method='POST'>
      Имя пользователя:<input name='find_user' type='text' value='<?=$findUser?>'>
      <input class='b3' type='submit' value='ok'>
     </form>
-    
+    <hr>
     <?php foreach ($arrFindUser as $v): ?>
-            <div>        
+            <div>
                 <?=$v['login'];?>
-                <form action='/friends/' method ='POST'>
-                <button class='b3' title='Добавить в друзья'><img src='/static/add.png'></button>
-                <input name='idAddFriend' class='hidden' value='<?=$v['id'];?>'>
-                </form>
-            </div>        
+                <div>
+                    <div class='ava'><?=$avaArr[$v['id']]?></div>
+                    <form class='right' action='/friends/' method ='POST'>
+                    <button class='b3' title='Добавить в друзья'><img src='/static/add.png'></button>
+                    <input name='requestAddFriend' class='hidden' value='<?=$v['id'];?>'>
+                    </form>
+                </div>
+            </div><hr>
     <?php endforeach; ?>
 
 <?php else : ?>
 
+    <!--входящие заявки в друзья-->
+    <?php if (!empty($friends_requests)): ?>
+        <b>Новые заявки в друзья к <?=$user?>:</b><hr>
+        <?php foreach ($friends_requests as $v): ?>
+            <div class='friends_requests'>
+                <a  href="/user/?id=<?=$v['id_user'];?>">
+                    <b><?=$v['login'];?></b>
+                    <div class='ava'><?=$avaArr[$v['id_user']]?></div>
+                </a>
+                <input name='id_request_Friend' class='hidden' value='<?=$v['id'];?>'>
+            </div>
+                <div class='right'>
+                    <a  href="/friends/?addf=<?=$v['id_user'];?>">
+                    <button class='b3 right' title='Добавить в друзья'><img src='/static/add.png'></button>
+                    </a>
+                    <a  href="/friends/?delr=<?=$v['id_req'];?>">
+                    <button class='b3 right' title='Отклонить заявку'><img src='/static/delete.png'></button>
+                    </a>
+                </div>
+            <hr>
+        <?php endforeach; ?>
+    <?php endif; ?> 
+
+    <!--заявки от пользоваетля-->
+    <?php if (!empty($my_requests)): ?>
+        <b>Заявки <?=$user?> к пользователям:</b><hr>
+        <?php foreach ($my_requests as $v): ?>
+            <div class='friends_requests'>
+                <a  href="/user/?id=<?=$v['id_friend'];?>">
+                    <b><?=$v['login'];?></b>
+                    <div class='ava'><?=$avaArr[$v['id_friend']]?></div>
+                </a>
+            </div>
+                <div class='right'>
+                    <a  href="/friends/?delmyr=<?=$v['id_req'];?>">
+                    <button class='b3 right' title='Отклонить заявку'><img src='/static/delete.png'></button>
+                    </a>
+                </div>
+            <hr>
+        <?php endforeach; ?>
+    <?php endif; ?> 
+
+    <!--вывод списка друзей-->
+    <b>Друзья</b><hr>
     <?php foreach ($arrOut as $v): ?>
-        <div class='trmenu'>
+        <div>
             <a  href="/user/?id=<?=$v['idfriend'];?>">
-                <?=$v['login'];?>
-            </a>    
+                <b><?=$v['login'];?></b>
+                <div class='ava'><?=$avaArr[$v['idfriend']]?></div>
+            </a><?=getOnline($v['online']);?>
+
                 <div class='right'><a  href="/msg/?idf=<?=$v['idfriend'];?>">
                     <button class='b3 right' title='Отправить сообщение'><img src='/static/msg.png'></button>
                     </a>
@@ -39,7 +89,7 @@
                         <button class='b3 right' title='Удалить из друзей'><img src='/static/delete.png'></button>
                     </form>
                 </div>
-        </div><br/>
+        </div><hr>
     <?php endforeach; ?>
 <?php endif; ?>
 </div>
