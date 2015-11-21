@@ -1,12 +1,14 @@
 <?php include "menu.phtml"; ?>
 <div class="d1" onclick=getEvent(event)>
 
+    <?php include "userHead.phtml"; ?>
+
     <div class="d2">
         <!-- если выбран диалог -->
         <?php if ($idFriend!=''): ?>
             <input class='hidden' id='idfriend' value='<?=$idFriend?>'>
-                Диалог с <a  href="/user/?id=<?=$idFriend;?>"><b><?=$logFriend?></b></a>
-                <div class='right'><?=$online?></div>
+                Диалог с <a  href="/user/<?=$idFriend;?>/"><b><?=$logFriend?></b></a>
+                <div class='right'><?=$onlineFriend?></div>
             
             <hr>
             <div class="dialog" id="dialog">
@@ -22,8 +24,13 @@
                 <hr>
                 <?php foreach ($arrOut as $v): ?>
                     <div>
-                        <a href="/msg/?idf=<?=$v['id_friend']?>"><b><?=$v['friend']?></b>
-                        <div class='ava'><?=$avaArr[$v['id_friend']]?></div>
+                        <a href="/msg/<?=$v['id_friend']?>/"><b><?=$v['friend']?></b>
+                        <div><?=getAva($v['id_friend'])?>
+                        
+                        <?php if ($kolNewMsg[$v['id_friend']]) : ?> 
+                                Новые сообщения:<?=($kolNewMsg[$v['id_friend']])?>
+                        <?php endif; ?>
+                        </div>
                         
                         </a>
                             <?=getOnline($v['online'])?>

@@ -1,0 +1,75 @@
+<?php include "menu.phtml";?>
+<div class="d1">
+    
+    <?php include "userHead.phtml"; ?>
+
+    <div class='d2'>
+        <?php if (isset($error) && !empty($error)): ?>
+        <?php foreach ($error as $val): ?>
+                <?=$val; ?><br/>
+            <?php endforeach; ?>
+        <?php endif; ?>
+        <hr>
+
+    <?php if ($idAlbum==''): ?>
+        <!--Альбомы-->
+        <?php if ( ($iduser==$idUserWall) ) : ?>
+            <form action="/foto/<?=$iduser?>/" method ="POST">
+                <input type='text' name='newAlbum' placeholder="Название альбома"/>
+                <input class='b1' type='submit' value='Создать альбом'>
+            </form>
+            <hr>
+        <?php endif; ?>
+        
+        <?php foreach ($arrOut as $v): ?>
+            
+            <a href="/foto/<?=$idUserWall?>/album/<?=$v['id']?>/">
+            <?=$v['name']?><br/>
+            
+                <?=getAvaAlbum($v['id'],$idUserWall)?>
+            
+            </a>
+            
+            <?php if ( ($iduser==$idUserWall) ) : ?>
+                <div class=right>
+                <a  href="/foto/<?=$iduser?>/delAlbum/<?=$v['id'];?>/">
+                <button class='b3' title='Удалить альбом'><img src='/static/delete.png'></button>
+                </a>
+                </div>
+            <?php endif; ?>
+            <hr>
+        <?php endforeach; ?>
+
+    <?php else: ?>
+        
+        <!--фотографии в альбоме-->
+        <?php if ( ($iduser==$idUserWall) ) : ?>
+            <form action='/foto/<?=$iduser?>/album/<?=$idAlbum?>/' method="post" enctype="multipart/form-data">
+                <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
+                <input type="file" name="newFoto"/>
+                <br/><br/>
+                <input class='b1' type="submit" value="Добавить фото"/>
+            </form>
+        <?php endif; ?>
+        <hr>        
+
+        <div class="your-class">
+        <?php foreach ($arrOut as $v): ?>
+            <div>
+            <img src='/<?=$dirAlbum?><?=$v['file']?>'><br/>
+            
+            <?php if ( ($iduser==$idUserWall) ) : ?>
+                <?=$v['file']?>
+                <a  href="/foto/<?=$idUserWall?>/album/<?=$idAlbum?>/delf/<?=$v['id']?>/">
+                <button class='b3' title='Удалить фото'><img src='/static/delete.png'></button>
+                </a>                
+            <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+        </div>
+
+    <?php endif; ?>
+
+    </div>
+    
+</div>

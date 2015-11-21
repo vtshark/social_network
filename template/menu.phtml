@@ -1,13 +1,14 @@
-<div class='menu'>
+<div id="menu" class="menu" onclick="getEvent(event)">
     
         <a href='/user/'><div class='trmenu'>Моя страница</div></a>
         <a href='/friends/'><div class='trmenu'>Друзья</div></a>
-        <a href='/msg/'><div class='trmenu'>Сообщения</div></a>
-        <a href='/news/'><div class='trmenu'>Новости</div></a>
+        <a href='/msg/'><div id='menuMsg' class='trmenu'>Сообщения</div></a>
+        <a href='/foto/'><div class='trmenu'>Фотоальбомы</div></a>
+        <!--<a href='/news/'><div class='trmenu'>Новости</div></a>-->
         <a href='/settings/'><div class='trmenu'>Настройки</div></a>    
     <br/><br/>
 
-<form action="/exit/" method ="POST">
-<input class='b2' type="submit" value="Выход">    
-</form>
+
+<button id='exit' class='b2'>Выход</button>
+
 </div>

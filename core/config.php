@@ -1,7 +1,7 @@
 <?php
 
 define("DB_LOGIN", "vtshark");
-define("DB_PASSWORD", "");
+define("DB_PASSWORD", "lancerx");
 define("DB_NAME", "social");
 
 define("DEBUG", true);

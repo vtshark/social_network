@@ -1,44 +1,30 @@
 <?php include "menu.phtml"; ?>
 
 <div class="d1" onclick=getEvent(event)>
-    <div class="headdiv" id="headnews">
-        <b><?=$logUserWall?></b>
-        <div class="ava"><?=$ava?></div>
-        <?php if ( ($iduser!=$idUserWall) ) : ?>    
-                <a  href="/msg/?idf=<?=$idUserWall;?>">
-                <button class='b3' title='Отправить сообщение'><img src='/static/msg.png'></button>
-                </a>
-        <?php endif; ?>
-        <?=$online?>
 
-        <input type="text" id="idUserWall" class='hidden' value="<?=$idUserWall?>"/>
-    </div>
+    <?php include "userHead.phtml"; ?>
 
-        <div class='d2'>
-            <div><img id='addNews' src='/static/add.png' title='Добавить запись'></div>
-                                <!--<div class='hidden' id='news<?=$v['id']?>'></div> -->
-                <?php if (isset($arr_out)): ?>
-                    <?php foreach ($arr_out as $v): ?>
-                            
-                            <div  class='trnews divleft'>
-                                <a  href="/user/?id=<?=$v['id_autor'];?>">
-                                  <?=$v['autor']?>  
-                                </a>
-                            </div>
-                            
-                            <?php if ( ($iduser==$v['id_autor']) || ($iduser==$idUserWall) ) : ?>    
-                                <div  class='divleft' id='news<?=$v['id']?>'></div>
-                            <?php endif; ?>
-                            
-                            <div class='trwall clearleft' id='<?=$v['id']?>'>
-                                <br/><?=$v['text']; ?><br/>
-                            </div>
-                            <div>    
-                                <p><?=$v['date']; ?></p>
-                            </div>
-                            <hr>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-
+    <div class="d2">
+        <div><button id="addNews" class='b3' title="Добавить запись">Добавить запись</button>
         </div>
+        <hr>
+            <?php foreach ($arr_out as $v): ?>
+                        
+                    <div  class='trnews divleft'>
+                        <a  href="/user/<?=$v['id_autor'];?>/">
+                             <?=$v['autor']?>  
+                        </a>
+                    </div>
+                    <?php if ( ($iduser==$v['id_autor']) || ($iduser==$idUserWall) ) : ?>    
+                        <div  class='divleft' id='news<?=$v['id']?>'></div>
+                    <?php endif; ?>
+                        
+                    <div class='trwall clearleft' id='<?=$v['id']?>'>
+                        <br/><?=$v['text']; ?><br/>
+                    </div>
+                    <div>    
+                        <p><?=$v['date']; ?></p>
+                    </div>
+                    <hr>
+            <?php endforeach; ?>
 </div>        

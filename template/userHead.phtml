@@ -1,0 +1,19 @@
+    <div class="headdiv" id="headnews">
+        
+        <a  href="/user/<?=$idUserWall;?>/"
+            <b><?=$name?> <?=$secondName?></b>
+            <div><?=getAva($idUserWall)?></div>
+        </a>
+
+        <?php if ( ($iduser!=$idUserWall) ) : ?>    
+                <a  href="/msg/<?=$idUserWall;?>/">
+                <button class='b3' title='Отправить сообщение'><img src='/static/msg.png'></button>
+                </a>
+
+        <?php endif; ?>
+                <a  href="/friends/<?=$idUserWall;?>/"><button class="b3">Друзья</button></a>
+                <a  href="/foto/<?=$idUserWall;?>/"><button class="b3">Фото</button></a>
+        <?=$online?>
+
+        <input type="text" id="idUserWall" class='hidden' value="<?=$idUserWall?>"/>
+    </div>

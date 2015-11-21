@@ -1,6 +1,6 @@
 <?php 
 if (isset($_SESSION['iduser']))  {
- header('Location: /user/');
+    header('Location: /user/');
 }
 
 $title = "Авторизация";

@@ -1,45 +1,45 @@
 <?php
-$arr_user = checklogin($db);
+$arr_user = checklogin();
 $user = $arr_user['login'];
 $iduser = $arr_user['id'];
 $title = "Сообщения";
 $idFriend = '';
 $logFriend = '';
-$online = '';
+$onlineFriend = '';
 $arrOut = array();
-$avaArr = array();
+
+include "userHead.php";
+
 // если выбран диалог, id собеседника
-if (isset($_GET['idf'])) {
-    $idFriend = $db->real_escape_string($_GET['idf']);
+if (isset($request[1])) {
+    $idFriend = $db->real_escape_string($request[1]);
     if ($iduser!=$idFriend) {
-        $q = $db->query(" SELECT `login`,`online` FROM `users` WHERE `id` = $idFriend");
-        $res = $q->fetch_assoc();
-        $logFriend = $res['login'];
-        $online=getOnline($res['online']);
+        $res = sql("SELECT `users`.`online`, `profile`.`name` 
+                FROM `users` INNER JOIN `profile` ON `profile`.`id_user` = `users`.`id` 
+                WHERE `users`.`id` = $idFriend",1);
+        $logFriend = $res['name'];
+        $onlineFriend=getOnline($res['online']);
     }    
     if ($logFriend=="") {
             header('Location: /msg/');
     }
 
-    //выборка сообщений пользователя с другом
-    //$arrOut=readMsg($db,$iduser,$idFriend);
-
 } else {
 // если диалог не выбран
-    $q = $db->query("SELECT `users_vs_messages`.`id_friend`, `users`.`login` as `friend`, `users`.`online` 
-        FROM `users_vs_messages` INNER JOIN `users` ON `users`.`id`=`users_vs_messages`.`id_friend` 
-        WHERE `users_vs_messages`.`id_user` = $iduser 
-        GROUP BY `users_vs_messages`.`id_friend`");
-    while($res = $q->fetch_assoc()) {
-        $arrOut[] = $res;
-        
-        $filename='static/users/id/'.$res['id_friend'].'/ava.jpg';
-        if (file_exists($filename)) {
-                $avaArr[ $res['id_friend'] ] = '<img src=/'.$filename.'>';
-            } else {
-                $avaArr[ $res['id_friend'] ] = '';
-            }
+    $arrOut=sql("SELECT `users_vs_messages`.`id_friend`, `profile`.`name` as `friend`, `users`.`online` 
+                FROM (`users_vs_messages` INNER JOIN `users` ON `users`.`id`=`users_vs_messages`.`id_friend`) 
+                    INNER JOIN `profile` ON `profile`.`id_user` = `users_vs_messages`.`id_friend` 
+                WHERE `users_vs_messages`.`id_user` = $iduser 
+                GROUP BY `users_vs_messages`.`id_friend`",0);
+    $arrOut1=sql("SELECT count(`id`) as `kol`,`id_friend`  FROM `users_vs_messages` 
+                WHERE `id_user` = {$iduser} AND `prizn_read`=false GROUP BY `id_friend`",0);
+    $kolNewMsg=array();
+    foreach ($arrOut1 as $v) {
+        $kolNewMsg[$v['id_friend']]=$v['kol'];
     }
+    //debug($kolNewMsg);
+    
 }   
-
-display("msg", compact('title', 'user','iduser','arrOut','logFriend','idFriend','online','avaArr'));  
+$idUserWall=$iduser;
+display("msg", compact('title', 'user','iduser','arrOut','logFriend','idFriend','onlineFriend',
+                        'name','secondName','online','idUserWall','kolNewMsg'));  
