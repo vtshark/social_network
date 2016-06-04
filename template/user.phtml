@@ -1,30 +1,48 @@
 <?php include "menu.phtml"; ?>
 
-<div class="d1" onclick=getEvent(event)>
+<div class="d1 container-fluid" onclick=getEvent(event)>
+<div class="row">
+    <div class="headdiv col-lg-3 col-md-4 col-sm-5">
+        <?php include "userHead.phtml"; ?>
+    </div>
 
-    <?php include "userHead.phtml"; ?>
-
-    <div class="d2">
-        <div><button id="addNews" class='b3' title="Добавить запись">Добавить запись</button>
+    <div class="d2 col-lg-5 col-md-6 col-sm-6" id="headnews">
+        <div><button id="addNews" class='btn btn-primary' title="Добавить запись">Добавить запись</button>
         </div>
         <hr>
-            <?php foreach ($arr_out as $v): ?>
+        <?php foreach ($arr_out as $v): ?>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-4 col-xs-4">
+                        <div  class='trnews'>
+                            <a  href="/user/<?=$v['id_autor'];?>/">
+                                 <?=$v['autor']?>
+                                <br/>
+                                <?=getAva($v['id_autor'])?>
+                            </a>
+                        </div>
+                    </div>    
+                    <div class="col-lg-9 col-md-9 col-sm-8 col-xs-8">
                         
-                    <div  class='trnews divleft'>
-                        <a  href="/user/<?=$v['id_autor'];?>/">
-                             <?=$v['autor']?>  
-                        </a>
-                    </div>
-                    <?php if ( ($iduser==$v['id_autor']) || ($iduser==$idUserWall) ) : ?>    
-                        <div  class='divleft' id='news<?=$v['id']?>'></div>
-                    <?php endif; ?>
+                        <?php if ( ($iduser==$v['id_autor']) || ($iduser==$idUserWall) ) : ?>    
+                             <div id="news<?=$v['id']?>"></div>
+                        <?php endif; ?>
+                        <br/>
                         
-                    <div class='trwall clearleft' id='<?=$v['id']?>'>
-                        <br/><?=$v['text']; ?><br/>
+                        <div class="trwall" id='<?=$v['id']?>'>
+                            <br/><?=$v['text']; ?><br/>
+                        </div>
+    
+                        <div>    
+                            <p><?=$v['date']; ?></p>
+                        </div>
                     </div>
-                    <div>    
-                        <p><?=$v['date']; ?></p>
-                    </div>
-                    <hr>
-            <?php endforeach; ?>
-</div>        
+                </div>
+                <hr>
+
+            </div>
+        <?php endforeach; ?>
+    </div>
+
+</div>
+</div>

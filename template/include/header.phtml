@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>
         <?php if(isset($title)):?>
             <?=$title;?>
@@ -11,10 +12,37 @@
     </title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css"/>
-<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
+<link href="/static/css/bootstrap.css" rel="stylesheet">
+<script src="/static/js/bootstrap.js"></script>
 
-<script type="text/javascript" src="/js/script.js"></script>
-<link rel="stylesheet" type="text/css" href="/css/style1.css">
+
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.css"/>
+
+<script type="text/javascript" src="/static/js/script.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/style.css">
+
 </head>
 <body onload=loadf()>
+
+<!--<div class="modal" id="myModal">
+  <div id="modal-body" class="modal-body">
+  </div>
+  <div class="modal-footer">
+      <button id="prevFoto" class="btn btn-default glyphicon glyphicon-chevron-left"></button>
+      <button id="nextFoto" class="btn btn-default glyphicon glyphicon-chevron-right"></button>
+      <button id="closeModal" title="Закрыть" class="btn btn-default glyphicon glyphicon-remove"></button>
+  </div>
+</div>-->
+<div id="modal1">
+    <div id="modal-body">
+    </div>    
+    
+    <div id="modal-footer">
+        <button id="prevFoto" class="btn btn-default glyphicon glyphicon-chevron-left"></button>
+        <button id="nextFoto" class="btn btn-default glyphicon glyphicon-chevron-right"></button>
+        <button id="closeModal" title="Закрыть" class="btn btn-default glyphicon glyphicon-remove"></button>
+    </div>
+</div>
+
+        

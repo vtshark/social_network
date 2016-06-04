@@ -1,0 +1,31 @@
+        <div id="carousel" class="carousel slide">
+            <ol class="carousel-indicators">
+                <?php $i=-1;foreach ($arrOut as $v): $i++; ?>
+                    <?php if ($i==0) : ?>
+                        <li class="active" data-target="#carousel" data-slide-to="<?=$i?>"></li>
+                    <?php else : ?>
+                        <li data-target="#carousel" data-slide-to="<?=$i?>"></li>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            </ol>
+            
+            <div class="carousel-inner">
+            <?php $i=-1; foreach ($arrOut as $v): $i++;?>
+                <?php if ($i==0) : ?>
+                    <div class="active item"><img src='/<?=$dirAlbum?><?=$v['file']?>'></div>
+                <?php else : ?>
+                    <div class="item"><img src='/<?=$dirAlbum?><?=$v['file']?>'></div>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
+                <br/>
+
+            </div>
+
+            <a href="#carousel" class="left carousel-control" data-slide="prev">
+                <span class="gliphicon gliphicon-chevron-left"></span>
+            </a>
+            <a href="#carousel" class="right carousel-control" data-slide="next">
+                <span class="gliphicon gliphicon-chevron-right"></span>                
+            </a>
+        </div>

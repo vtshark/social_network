@@ -11,7 +11,7 @@ $logUserWall = '';
 include "userHead.php";
 
 
-$title = $logUserWall;
+$title = $name." ".$secondName;
 ///сохранение новой записи на стене
 if (isset($_POST['textnews'])) {
     $textnews = out($db->real_escape_string($_POST['textnews']));

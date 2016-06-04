@@ -1,0 +1,12 @@
+        <div class="your-class">
+            <?php foreach ($arrOut as $v):?>
+            <div class="active item"><img src='/<?=$dirAlbum?><?=$v['file']?>'>
+                <?php if ( ($iduser==$idUserWall) ) : ?>
+                    <?=$v['file']?>
+                    <a  href="/foto/<?=$idUserWall?>/album/<?=$idAlbum?>/delf/<?=$v['id']?>/">
+                    <button class='btn btn-default' title='Удалить фото'><img src='/static/delete.png'></button>
+                    </a>
+                <?php endif; ?>
+            </div>
+            <?php endforeach; ?>
+        </div>

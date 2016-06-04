@@ -1,27 +1,32 @@
 <?php include "menu.phtml"; ?>
 
 
-<div class="d1">
+<div class="d1 container-fluid">
+<div class="row">
+
+<div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+<div class="d2 col-lg-4 col-md-5 col-sm-6 col-xs-10">
 
     <!--Вывод ошибок-->
     <?php if (isset($error) && !empty($error)): ?>
+    
         <?php foreach ($error as $val): ?>
-            <font color="#C0AFAB"><?=$val; ?></font><br/>
+            <font><?=$val; ?></font><br/>
         <?php endforeach; ?>
+        
     <hr>
     <?php endif; ?>
 
-<div class="d2">
     Настройки профиля <?=$user?>
     
     <hr>
     <!--настройка аватарки-->
     <div><?=getAva($iduser)?></div>
     <form action="/settings/" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="MAX_FILE_SIZE" value="500000" />
+        <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
         <input type="file" name="userfile"/>
         <br/><br/>
-        <input class="b1" type="submit" value="Обновить аватар"/>
+        <input class="btn btn-primary" type="submit" value="Обновить аватар"/>
     </form>
     <hr>
     <!--настройка ФИО-->
@@ -30,13 +35,14 @@
         <br/><input name ="secondName" type="text" placeholder="Фамилия" value="<?= $secondName ?>"><br/>
         <br/>Дата рождения:
         <input name="day" type="text" placeholder="д." 
-               pattern="[0-9]{2}" style='width:20px' value="<?=$day?>"> -
+               pattern="[0-9]{2}" style='width:30px' value="<?=$day?>"> -
         <input name ="month" type="text" value="<?= $month ?>" value="" placeholder="м." maxlength=2 pattern="[0-9]{2}"
-            style='width:20px'>-
-        <input name ="year" type="text" value="<?= $year ?>" placeholder="год" maxlength=4 pattern="[0-9]{4}" style='width:40px'>
+            style='width:30px'>-
+        <input name ="year" type="text" value="<?= $year ?>" placeholder="год" maxlength=4 pattern="[0-9]{4}" style='width:50px'>
         <br/><br/>
-        <input class="b1" type="submit" value="Сохранить"/>
+        <input class="btn btn-primary" type="submit" value="Сохранить"/>
         </form>        
         
+</div>
 </div>
 </div>

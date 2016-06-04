@@ -1,9 +1,10 @@
 <?php include "menu.phtml"; ?>
-<div class="d1" onclick=getEvent(event)>
-
-    <?php include "userHead.phtml"; ?>
-
-    <div class="d2">
+<div class="d1 container-fluid" onclick=getEvent(event)>
+<div class="row">
+    <div class="headdiv col-lg-3 col-md-4 col-sm-5">
+        <?php include "userHead.phtml"; ?>
+    </div>
+    <div class="d2 col-lg-5 col-md-6 col-sm-6">
         <!-- если выбран диалог -->
         <?php if ($idFriend!=''): ?>
             <input class='hidden' id='idfriend' value='<?=$idFriend?>'>
@@ -15,7 +16,7 @@
             </div>
 
                 <textarea class="msgtext" placeholder="текст сообщения" id="newMsg" name="newMsg"/></textarea>
-                <br><input class="b1" type="button" id='sendMsg' value="Отправить">
+                <br><input class="btn btn-primary" type="button" id='sendMsg' value="Отправить">
     
         <?php else: ?>
             
@@ -41,3 +42,5 @@
         <?php endif; ?>
     </div>
 </div>
+</div>
+

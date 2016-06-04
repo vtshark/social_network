@@ -1,7 +1,9 @@
-<div>
+<div class = "container">
+<div class = "row">
+<div class = "col-lg-4 col-md-5 col-sm-6 col-xs-8">
 <?php $i=0; if (isset($error)): ?>
     <?php foreach ($error as $val): ?>
-        <font color="#C0AFAB"><?=++$i.'.'.$val; ?></font><br/>
+        <font><?=++$i.'.'.$val; ?></font><br/>
     <?php endforeach; ?>
 <hr>
 <?php endif;?>
@@ -14,13 +16,15 @@
         <br/><input name ="secondName" type="text" placeholder="Фамилия" value='<?= $secondName ?>'><br/>
         <br/><input name ="password" type="password" placeholder="Пароль"><br/>
         <br/><input name ="password1" type="password" placeholder="Подтвердите пароль"><br/>
-        <br/><input class='b1' type="submit" value="Ок">
+        <br/><input class='btn btn-primary' type="submit" value="Ок">
     </form>
         <form action="../" method ="POST">
-        <br/><input class='b1' type="submit" value="Главная страница">
+        <br/><input class='btn btn-primary' type="submit" value="Главная страница">
         </form>
     </div>
 <?php endif; ?>
+</div>
+</div>
 </div>
 
 

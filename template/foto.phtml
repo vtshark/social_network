@@ -1,9 +1,10 @@
 <?php include "menu.phtml";?>
-<div class="d1">
-    
-    <?php include "userHead.phtml"; ?>
-
-    <div class='d2'>
+<div class="d1 container-fluid">
+<div class="row">    
+    <div class="headdiv col-lg-3 col-md-4 col-sm-5">
+        <?php include "userHead.phtml"; ?>
+    </div>
+    <div class="d2 col-lg-5 col-md-6 col-sm-6">
         <?php if (isset($error) && !empty($error)): ?>
         <?php foreach ($error as $val): ?>
                 <?=$val; ?><br/>
@@ -16,7 +17,7 @@
         <?php if ( ($iduser==$idUserWall) ) : ?>
             <form action="/foto/<?=$iduser?>/" method ="POST">
                 <input type='text' name='newAlbum' placeholder="Название альбома"/>
-                <input class='b1' type='submit' value='Создать альбом'>
+                <input class='btn btn-primary' type='submit' value='Создать альбом'>
             </form>
             <hr>
         <?php endif; ?>
@@ -33,7 +34,7 @@
             <?php if ( ($iduser==$idUserWall) ) : ?>
                 <div class=right>
                 <a  href="/foto/<?=$iduser?>/delAlbum/<?=$v['id'];?>/">
-                <button class='b3' title='Удалить альбом'><img src='/static/delete.png'></button>
+                <button class='btn btn-default' title='Удалить альбом'><img src='/static/delete.png'></button>
                 </a>
                 </div>
             <?php endif; ?>
@@ -45,31 +46,22 @@
         <!--фотографии в альбоме-->
         <?php if ( ($iduser==$idUserWall) ) : ?>
             <form action='/foto/<?=$iduser?>/album/<?=$idAlbum?>/' method="post" enctype="multipart/form-data">
-                <input type="hidden" name="MAX_FILE_SIZE" value="2000000" />
+                <input type="hidden" name="MAX_FILE_SIZE" value="5000000" />
                 <input type="file" name="newFoto"/>
                 <br/><br/>
-                <input class='b1' type="submit" value="Добавить фото"/>
+                <input class='btn btn-primary' type="submit" value="Добавить фото"/>
             </form>
         <?php endif; ?>
         <hr>        
 
-        <div class="your-class">
-        <?php foreach ($arrOut as $v): ?>
-            <div>
-            <img src='/<?=$dirAlbum?><?=$v['file']?>'><br/>
-            
-            <?php if ( ($iduser==$idUserWall) ) : ?>
-                <?=$v['file']?>
-                <a  href="/foto/<?=$idUserWall?>/album/<?=$idAlbum?>/delf/<?=$v['id']?>/">
-                <button class='b3' title='Удалить фото'><img src='/static/delete.png'></button>
-                </a>                
-            <?php endif; ?>
-            </div>
-        <?php endforeach; ?>
-        </div>
+
+
+        <?php include "slide3.phtml";?>
+
 
     <?php endif; ?>
 
     </div>
     
+</div>
 </div>

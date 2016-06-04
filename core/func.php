@@ -90,8 +90,9 @@ function readMsg($db,$iduser,$idFriend,$prizn) {
             ORDER BY id DESC LIMIT 10",0);
         $arrOut=array_reverse($arrOut);
     }
+    
     //при последующих вызовах функции считываем только новые сообщения
-        $arrOut1=sql("SELECT `users_vs_messages`.*, `msg`.`text`, `profile`.`name` as `autor`  
+        $arrOut1 = sql("SELECT `users_vs_messages`.*, `msg`.`text`, `profile`.`name` as `autor`  
         FROM (`users_vs_messages` INNER JOIN `msg` ON `msg`.`id` = `users_vs_messages`.`id_msg`)  
         INNER JOIN `profile` ON `profile`.`id_user`=`users_vs_messages`.`id_autor`  
         WHERE `users_vs_messages`.`id_user` = {$iduser} AND `users_vs_messages`.`id_Friend`={$idFriend}  
@@ -140,7 +141,7 @@ function getOnline($time) {
 }
 
 function getAva($id) {
-    $ava="";
+    $ava = "";
     $filename="static/users/id/$id/ava.jpg";
     if (file_exists($filename)) {
         $ava = '<img src=/'.$filename.'>';
@@ -150,7 +151,6 @@ function getAva($id) {
 function getAvaAlbum($id,$idUserWall) {
     $ava="";
     $filename="static/users/id/{$idUserWall}/albums/{$id}/ava/ava.jpg";
-    //debug($filename);
     if (file_exists($filename)) {
         $ava = '<img src=/'.$filename.'>';
     }
@@ -159,15 +159,21 @@ function getAvaAlbum($id,$idUserWall) {
 function uploadFoto($uploadfile,$tmpfile,$w,$h) {
     $size=getimagesize($tmpfile);
     $koef=1;
-    if ($size[0]>$size[1])  {
-        $koef=$w/$size[0];
+    if (($size[0]>$w) || ($size[0]>$h)) {
+        if ($size[0]>$size[1])  {
+            $koef=$w/$size[0];
+        } else {
+            $koef=$h/$size[1];
+        }
+        $w=(int)$size[0]*$koef;
+        $h=(int)$size[1]*$koef;
     } else {
-        $koef=$h/$size[1];
+        $w=(int)$size[0];
+        $h=(int)$size[1];
     }
-    $w=(int)$size[0]*$koef;
-    $h=(int)$size[1]*$koef;
     $new=imagecreatetruecolor($w,$h);
-    $im=imagecreatefromjpeg($tmpfile);
+    //$im=imagecreatefromjpeg($tmpfile);
+    $im=imagecreatefromstring(file_get_contents($tmpfile));
     imagecopyresampled($new,$im,0,0,0,0,$w,$h,$size[0],$size[1]);
     imagejpeg($new,$uploadfile);
 }

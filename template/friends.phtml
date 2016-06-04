@@ -1,12 +1,16 @@
 <?php include "menu.phtml";?>
-<div class='d1'>
 
-    <?php include "userHead.phtml"; ?>
+<div class='d1 container-fluid' onclick=getEvent(event)>
+<div class="row">
+    <div class="headdiv col-lg-3 col-md-4 col-sm-5">
+        <?php include "userHead.phtml"; ?>
+    </div>
 
-<div class='d2' onclick=getEvent(event)>
+
+<div class="d2 col-lg-5 col-md-6 col-sm-6">
 <?php if ( ($iduser==$idUserWall) ) : ?>
     <form action='/friends/<?=$iduser?>/find/' method='POST'>
-            <input class='b3' type='submit' value='поиск'>
+            <input class='btn btn-primary' type='submit' value='поиск'>
     </form>
 <hr>
 <?php endif; ?> 
@@ -17,7 +21,7 @@
     <form action='/friends/<?=$iduser?>/find/' method='POST'>
      Имя:<input name='find_user_name' type='text' value='<?=$findName?>'><br/>
      Фамилия:<input name='find_user_sname' type='text' value='<?=$findSName?>'><br/>
-     <input class='b3' type='submit' value='ok'>
+     <input class='btn btn-primary' type='submit' value='ok'>
     </form>
     <hr>
     <?php foreach ($arrFindUser as $v): ?>
@@ -26,7 +30,9 @@
                     <div><?=getAva($v['id_user'])?></div>
                 </a>
                     <form class='right' action='/friends/' method ='POST'>
-                    <button class='b3' title='Добавить в друзья'><img src='/static/add.png'></button>
+                    <button class='btn btn-default' title='Добавить в друзья'>
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
                     <input name='requestAddFriend' class='hidden' value='<?=$v['id_user'];?>'>
                     </form>
 
@@ -38,66 +44,88 @@
     <!--входящие заявки в друзья-->
     <?php if (!empty($friends_requests)): ?>
         <b>Новые заявки в друзья к <?=$name?> <?=$secondName?>:</b><hr>
+        <div class="container-fluid">
         <?php foreach ($friends_requests as $v): ?>
-            <div class='friends_requests'>
-                <a  href="/user/<?=$v['id_user'];?>/">
-                    <b><?=$v['name'];?> <?=$v['second_name'];?></b>
-                    <div><?=getAva($v['id_user'])?></div>
-                </a>
-                <input name='id_request_Friend' class='hidden' value='<?=$v['id'];?>'>
-            </div>
-                <div class='right'>
-                    <a  href="/friends/<?=$iduser;?>/addf/<?=$v['id_user'];?>/">
-                    <button class='b3 right' title='Добавить в друзья'><img src='/static/add.png'></button>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <a  href="/user/<?=$v['id_user'];?>/">
+                        <b><?=$v['name'];?> <?=$v['second_name'];?></b>
+                        <div><?=getAva($v['id_user'])?></div>
                     </a>
+                    <input name='id_request_Friend' class='hidden' value='<?=$v['id'];?>'>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <a  href="/friends/<?=$iduser;?>/addf/<?=$v['id_user'];?>/">
+                    <button class='btn btn-default right' title='Добавить в друзья'>
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                    </a><br/>
                     <a  href="/friends/<?=$iduser;?>/delr/<?=$v['id_req'];?>/">
-                    <button class='b3 right' title='Отклонить заявку'><img src='/static/delete.png'></button>
+                    <button class='btn btn-default right' title='Отклонить заявку'>
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
                     </a>
                 </div>
+            </div>    
             <hr>
         <?php endforeach; ?>
+        </div>
     <?php endif; ?> 
 
     <!--заявки от пользоваетля-->
     <?php if (!empty($my_requests)): ?>
         <b>Заявки <?=$name?> <?=$secondName?> к пользователям:</b><hr>
-        <?php foreach ($my_requests as $v): ?>
-            <div class='friends_requests'>
-                <a  href="/user/<?=$v['id_friend'];?>/">
-                    <b><?=$v['name'];?> <?=$v['second_name'];?></b>
-                    <div><?=getAva($v['id_friend'])?></div>
-                </a>
-            </div>
-                <div class='right'>
-                    <a  href="/friends/<?=$iduser;?>/delmyr/<?=$v['id_req'];?>/">
-                    <button class='b3 right' title='Отклонить заявку'><img src='/static/delete.png'></button>
+        <div class="container-fluid">
+            <?php foreach ($my_requests as $v): ?>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <a  href="/user/<?=$v['id_friend'];?>/">
+                        <b><?=$v['name'];?> <?=$v['second_name'];?></b>
+                        <div><?=getAva($v['id_friend'])?></div>
                     </a>
                 </div>
-            <hr>
-        <?php endforeach; ?>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <a  href="/friends/<?=$iduser;?>/delmyr/<?=$v['id_req'];?>/">
+                    <button class='btn btn-default' title='Отклонить заявку'>
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                    </a>
+                </div>
+                <hr>
+            </div><hr>
+            <?php endforeach; ?>
+        </div>
     <?php endif; ?> 
 
     <!--вывод списка друзей-->
     <b>Друзья</b><hr>
     <?php foreach ($arrOut as $v): ?>
-        <div>
-            <a  href="/user/<?=$v['idfriend'];?>/">
-                <b><?=$v['name'];?> <?=$v['second_name'];?></b>
-                <div><?=getAva($v['idfriend'])?></div>
-            </a><?=getOnline($v['online']);?>
-
-                <div class='right'><a  href="/msg/<?=$v['idfriend'];?>/">
-                    <button class='b3 right' title='Отправить сообщение'><img src='/static/msg.png'></button>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    <a  href="/user/<?=$v['idfriend'];?>/">
+                        <b><?=$v['name'];?> <?=$v['second_name'];?></b><br/>
+                        <?=getAva($v['idfriend'])?>
+                    </a><br/><?=getOnline($v['online']);?>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"><a  href="/msg/<?=$v['idfriend'];?>/">
+                    <button class='btn btn-default right' title='Отправить сообщение'>
+                        <span class="glyphicon glyphicon-envelope"></span>
+                    </button>
                     </a>
                     <?php if ( ($iduser==$idUserWall) ) : ?>
                         <form  action='/friends/' method ='POST'>
                             <input name='idDelFriend' class='hidden' value='<?=$v['idfriend'];?>'>  
-                            <button class='b3 right' title='Удалить из друзей'><img src='/static/delete.png'></button>
+                            <button class='btn btn-default right' title='Удалить из друзей'>
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
                         </form>
                    <?php endif; ?>         
                 </div>
+            </div>
         </div><hr>
     <?php endforeach; ?>
 <?php endif; ?>
+</div>
 </div>
 </div>

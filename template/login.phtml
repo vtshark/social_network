@@ -1,21 +1,25 @@
-<div>
+<div class = "container">
+<div class = "row">
+<div class = "col-lg-4 col-md-5 col-sm-6 col-xs-8">
 <?php if (isset($error) && !empty($error)): ?>
     <?php foreach ($error as $val): ?>
-        <font color="#C0AFAB"><?=$val; ?></font><br/>
+        <font><?=$val; ?></font><br/>
     <?php endforeach; ?>
 <hr>
 <?php endif; ?>
-    <div class='login'>
+    <div class=' login'>
     <form action="/login/" method ="POST">
         <input name ="login" type="text" placeholder="Имя пользоваля"><br/>
         <input name ="password" type="password" placeholder="Пароль"><br/><br/>
-        <input class='b1' type="submit" value="Войти">
+        <input class='btn btn-primary' type="submit" value="Войти">
     </form>    
     <hr>
     <form action="/reg/" method ="POST">    
-        <input class='b1' type="submit" value="Регистрация"><br/>
+        <input class='btn btn-primary' type="submit" value="Регистрация"><br/>
     </form>
     </div>
+</div>
+</div>
 </div>
 
 

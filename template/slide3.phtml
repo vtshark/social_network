@@ -1,0 +1,19 @@
+<div>
+    <?php $i=0; 
+    foreach ($arrOut as $v): 
+        $i++;
+    ?>
+        <div>
+            <div id="div-foto<?=$i?>" class="foto-mini">
+                <img id="foto<?=$i?>" src="/<?=$dirAlbum?><?=$v['file']?>">
+            </div>
+            <?php if ( ($iduser==$idUserWall) ) : ?>
+                <?=$v['file']?>
+                <a  href="/foto/<?=$idUserWall?>/album/<?=$idAlbum?>/delf/<?=$v['id']?>/">
+                <button class="btn btn-default" title="Удалить фото"><img src="/static/delete.png"></button>
+                </a><br/><br/><br/>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+    
+</div>

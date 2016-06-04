@@ -4,15 +4,30 @@ $user = $arr_user['login'];
 $iduser = $arr_user['id'];
 $title = 'Настройки аккаунта';
 $error = array();
+$arrErrors = array(
+    "Размер принятого файла превысил максимально допустимый размер - 5mb.",
+    "Размер принятого файла превысил максимально допустимый размер - 5mb.",
+    "Загружаемый файл был получен только частично.",
+    "Файл не был загружен.",
+    "отсутствует временная папка.",
+    "Не удалось записать файл на диск",
+    "PHP остановил загрузку файлов"
+    );
 /////обновление аватара////
-if ( !empty($_FILES) && ($_FILES['userfile']['name']!='') ) {
+if ( !empty($_FILES) ) {
 
     $uploadfile='static/users/id/'.$iduser.'/ava.jpg';
     if (!is_dir('static/users/id/'.$iduser)) {
         mkdir('static/users/id/'.$iduser);
     }
+    if ($_FILES['userfile']['error']==0) {
         $tmpfile=$_FILES['userfile']['tmp_name'];
         uploadFoto($uploadfile,$tmpfile,70,70);
+    } else {
+        $numErr=$_FILES['userfile']['error'];
+        $error[]="Ошибка загрузки фото!<br/>№$numErr.".$arrErrors[$numErr-1];
+    }
+        
 }
 /////////сохранение ФИО и даты рождения///
 if ( isset($_POST['name']) )  {
@@ -30,7 +45,7 @@ if ( isset($_POST['name']) )  {
         $error[]="Не корректная дата рождения!";
     }
     
-    if (($newName!='') && ($newSecondName!='') && ($booldate)) {
+    if (($newName!='') && ($newSecondName!='') && $booldate) {
         $dateOfBirth=$year.".".$month.".".$day;
         $q = $db->query(" SELECT * FROM `profile` WHERE `id_user` = $iduser");
         $res = $q->fetch_assoc();

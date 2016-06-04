@@ -1,14 +1,20 @@
-<div id="menu" class="menu" onclick="getEvent(event)">
-    
-        <a href='/user/'><div class='trmenu'>Моя страница</div></a>
-        <a href='/friends/'><div class='trmenu'>Друзья</div></a>
-        <a href='/msg/'><div id='menuMsg' class='trmenu'>Сообщения</div></a>
-        <a href='/foto/'><div class='trmenu'>Фотоальбомы</div></a>
-        <!--<a href='/news/'><div class='trmenu'>Новости</div></a>-->
-        <a href='/settings/'><div class='trmenu'>Настройки</div></a>    
-    <br/><br/>
-
-
-<button id='exit' class='b2'>Выход</button>
-
+<div id="menu" class="menu navbar-top" onclick="getEvent(event)">
+<div class="container">
+    <div class="navbar-header">
+        <button class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">
+        <span class="glyphicon glyphicon-align-justify"></span>
+        </button>
+    </div>    
+    <div class="collapse navbar-collapse" id="responsive-menu">
+        <ul class='nav navbar-nav'>
+        <li><a href='/user/'>Моя страница</a></li>
+        <li><a href='/friends/' id='newFriends'>Друзья</a></li>
+        <li><a href='/msg/' id='newMessages'>Сообщения</a></li>
+        <li><a href='/foto/'>Фотоальбомы</a></li>
+        <!--<a href='/news/'><div>Новости</div></a>-->
+        <li><a href='/settings/'>Настройки</a></li>
+        <li><a href='/exit/'>Выход</a></li>
+        </ul>
+    </div>
+</div>
 </div>

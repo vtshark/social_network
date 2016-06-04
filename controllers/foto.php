@@ -7,6 +7,15 @@ $arrOut = array();
 $error = array();
 $idAlbum = '';
 $dirAlbum = '';
+$arrErrors = array(
+    "Размер принятого файла превысил максимально допустимый размер - 5mb.",
+    "Размер принятого файла превысил максимально допустимый размер - 5mb.",
+    "Загружаемый файл был получен только частично.",
+    "Файл не был загружен.",
+    "отсутствует временная папка.",
+    "Не удалось записать файл на диск",
+    "PHP остановил загрузку файлов"
+    );
 
 include "userHead.php";
 
@@ -77,14 +86,14 @@ if ($idUserWall == $iduser) {
 
     //загрузка фото в альбом
     if (!empty($_FILES)) {
-        if ($_FILES['newFoto']['name']!='') {
+        if ($_FILES['newFoto']['error']==0) {
             $uploadfile=$dirAlbum.$_FILES['newFoto']['name'];
             if (!file_exists($uploadfile))  {
         
                 $db->query("INSERT INTO `foto` (`id_album`,`about`,`file`) 
                             VALUES ($idAlbum,'','".$_FILES['newFoto']['name']."')");
                 $tmpfile=$_FILES['newFoto']['tmp_name'];
-                uploadFoto($uploadfile,$tmpfile,300,300);
+                uploadFoto($uploadfile,$tmpfile,1000,1000);
         
                 //обновление авы фотоальбома
                 $uploadDir=$dirAlbum."/ava/";
@@ -97,7 +106,8 @@ if ($idUserWall == $iduser) {
                 $error[]="Фото с таким именем файла уже добавлено в альбом!";
             }
         } else {
-            $error[]="Не выбран файл!";
+            $numErr=$_FILES['newFoto']['error'];
+            $error[]="Ошибка загрузки фото!<br/>№$numErr.".$arrErrors[$numErr-1];
         }
         
     }

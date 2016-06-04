@@ -108,14 +108,16 @@ if ($idUserWall==$iduser) {
             }
         
             $bufn="";
-            if ($findName!="") $bufn=" `name` like LOWER('%$findName%')";
+            //`name` COLLATE UTF8_BIN like LOWER('%$findName%' COLLATE UTF8_BIN)
+            //" `name` like '%$findName%'";
+            if ($findName!="") $bufn=" `name`  like '%$findName%'";
             if ($findSName!="") {
                 if ($bufn!="") {
                     $bufn=$bufn." AND ";
                 }    
                     $bufn=$bufn."`second_name` like '%$findSName%'";
             }
-            $arrFindUser = sql("SELECT `id_user`,`second_name`,`name` as name  FROM `profile` WHERE $bufn $buf",0);
+            $arrFindUser = sql("SELECT `id_user`,`second_name`,`name`  FROM `profile` WHERE $bufn $buf",0);
         }
     }
 }
